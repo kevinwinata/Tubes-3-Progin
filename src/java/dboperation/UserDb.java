@@ -28,8 +28,7 @@ public class UserDb {
     
     public void addUser(User user) {
         try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("insert into user(username,password,fullname,birthdate,phonenumber,email,avatar) values (?, ?, ?, ?, ?, ?, ? )");
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into user(username,password,fullname,birthdate,phonenumber,email,avatar) values (?, ?, ?, ?, ?, ?, ? )");
             // Parameters start with 1
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());

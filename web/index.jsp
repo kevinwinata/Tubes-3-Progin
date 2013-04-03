@@ -16,7 +16,7 @@
         Username : <input type="text" name="username" /> <br /> 
         Password : <input type="text" name="password" /> <br /> 
         Fullname : <input type="text" name="fullname" /> <br /> 
-        Birthdate : <input type="date" name="birthdate" /> <br /> 
+        Birthdate : <input type="text" name="birthdate" /> <br /> 
         Phonenumber : <input type="text" name="phonenumber" /> <br /> 
         Email : <input type="text" name="email" /> <br /> 
         Avatar : <input type="text" name="avatar" /> <br /> 
