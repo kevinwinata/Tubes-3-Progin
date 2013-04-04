@@ -34,7 +34,7 @@ public class UserDb {
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getFullname());
             preparedStatement.setDate(4, new java.sql.Date(user.getBirthdate().getTime()));
-            preparedStatement.setString(5, user.getPhonenumber());
+            preparedStatement.setString(5, "");
             preparedStatement.setString(6, user.getEmail());
             preparedStatement.setString(7, user.getAvatar());
             preparedStatement.executeUpdate();
@@ -90,6 +90,32 @@ public class UserDb {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE username=? and password=?");
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
+            ResultSet rs = preparedStatement.executeQuery();
+            ret = rs.first();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+    
+    public boolean isUserExist(String username) {
+        boolean ret = false;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE username=?");
+            preparedStatement.setString(1, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            ret = rs.first();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+    
+    public boolean isEmailExist(String email) {
+        boolean ret = false;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE email=?");
+            preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
             ret = rs.first();
         } catch (SQLException e) {

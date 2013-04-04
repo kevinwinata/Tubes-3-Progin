@@ -36,15 +36,28 @@ public class Register extends HttpServlet {
         user.setPassword(request.getParameter("password"));
         user.setFullName(request.getParameter("fullname"));
         try {
-            Date birthdate = new SimpleDateFormat("MM/dd/yyyy").parse(request.getParameter("birthdate"));
+            String createdate = request.getParameter("bulan")+"/"+request.getParameter("tanggal")+"/"+request.getParameter("tahun");
+            Date birthdate = new SimpleDateFormat("MM/dd/yyyy").parse(createdate);
             user.setBirthdate(birthdate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        user.setPhonenumber(request.getParameter("phonenumber"));
         user.setEmail(request.getParameter("email"));
-        user.setAvatar(request.getParameter("avatar"));
+        
+        String filename = new String();
+        for (String cd : request.getPart("avatar").getHeader("content-disposition").split(";")) {
+        if (cd.trim().startsWith("filename")) {
+            String prefilename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+            filename = prefilename.substring(prefilename.lastIndexOf('/') + 1).substring(prefilename.lastIndexOf('\\') + 1); // MSIE fix.
+            filename = "upload/" + filename;
+            }
+        }
+        user.setAvatar(filename);
 
         dboperation.addUser(user);
+        
+        RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
+        view.forward(request, response);
     }
+    
 }

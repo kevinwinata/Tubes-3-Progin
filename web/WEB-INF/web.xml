@@ -10,8 +10,38 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>controller.Login</servlet-class>
     </servlet>
+    <servlet>
+        <description/>
+        <display-name>Register</display-name>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>controller.Register</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
+        <display-name>ListUsername</display-name>
+        <servlet-name>ListUsername</servlet-name>
+        <servlet-class>controller.ListUsername</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
+        <display-name>ListEmail</display-name>
+        <servlet-name>ListEmail</servlet-name>
+        <servlet-class>controller.ListEmail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListUsername</servlet-name>
+        <url-pattern>/ListUsername</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListEmail</servlet-name>
+        <url-pattern>/ListEmail</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -29,7 +29,7 @@
                         document.getElementById("v_login").innerHTML=xmlhttp.responseText;
                     }
                 }
-                xmlhttp.open("GET","listusername.php?q="+uname+"&t=login",true);
+                xmlhttp.open("GET","ListUsername?q="+uname+"&t=login",true);
                 xmlhttp.send();
             }
 
@@ -57,7 +57,7 @@
                 if(checkUserName(document.register_form.username.value) &&
                     checkPass(document.register_form.password.value, document.register_form.username.value, document.register_form.email.value) &&
                     checkCPass(document.register_form.confirm_password.value, document.register_form.password.value) &&
-                    validateFullName(document.register_form.nama_lengkap.value) &&
+                    validateFullName(document.register_form.fullname.value) &&
                     checkEmail(document.register_form.email.value) &&
                     validateAvatar(document.register_form.avatar.value))
                 {
@@ -90,7 +90,7 @@
                             document.getElementById("v_email").innerHTML=xmlhttp.responseText;
                         }
                     }
-                    xmlhttp.open("GET","listemail.php?q="+email,true);
+                    xmlhttp.open("GET","ListEmail?q="+email,true);
                     xmlhttp.send();
 
                     return true;
@@ -121,7 +121,7 @@
                             document.getElementById("v_uname").innerHTML=xmlhttp.responseText;
                         }
                     }
-                    xmlhttp.open("GET","listusername.php?q="+uname+"&t=reg",true);
+                    xmlhttp.open("GET","ListUsername?q="+uname+"&t=reg",true);
                     xmlhttp.send();
                     return true;
                 }else{   
@@ -211,13 +211,13 @@
                         Password: <input type="password" name="password">
                     </div>
                     <div class="login_form">
-                        Username: <input type="text" name="username" onKeyUp="isUsername(document.login.myusername.value)">
+                        Username: <input type="text" name="username" onKeyUp="isUsername(document.login.username.value)">
                         <div id="v_login">
                             <%
-                            String success = "${q}";
-                            out.print(success);
-                            if (success.equals("0")) {
-                                out.print("Login gagal");
+                            String success = (String) request.getAttribute("q");
+
+                            if ((success != null) && (success.equals("0"))) {
+                                out.print("<font color='red'>Login gagal</font>");
                             }
                             %>
                         </div>
@@ -226,7 +226,7 @@
             </div>
 
             <div id="left_tab">
-                <img src="images/registerglass.png" alt="Register dong gan">
+                <img src="images/registerglass.png">
             </div>
 
             <div id="register_tab">
@@ -267,7 +267,7 @@
                                 Nama lengkap: 
                             </div>
                             <div class="field_kanan">
-                                <input type="text" name="nama_lengkap" maxlength="256" onKeyUp="enableRegister()">
+                                <input type="text" name="fullname" maxlength="256" onKeyUp="enableRegister()">
                             </div>
                             <div id="v_nama">
                             </div>
@@ -282,18 +282,18 @@
                                 </select>
                                 <select name="bulan">
                                     <option>--Bulan--</option>
-                                    <option value="January">January</option>
-                                    <option value="February">February</option>
-                                    <option value="March">March</option>
-                                    <option value="April">April</option>
-                                    <option value="May">May</option>
-                                    <option value="June">June</option>
-                                    <option value="July">July</option>
-                                    <option value="August">August</option>
-                                    <option value="September">September</option>
-                                    <option value="October">October</option>
-                                    <option value="November">November</option>
-                                    <option value="December">December</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
                                 </select>
                                 <select name="tahun" id="thn">
                                     <option>--Tahun--</option>
