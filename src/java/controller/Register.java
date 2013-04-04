@@ -21,11 +21,11 @@ import model.User;
  *
  * @author Mario
  */
-public class UserController extends HttpServlet {
+public class Register extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDb dboperation;
 
-    public UserController() {
+    public Register() {
         super();
         dboperation = new UserDb();
     }

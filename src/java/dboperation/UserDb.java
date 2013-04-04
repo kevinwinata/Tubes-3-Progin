@@ -65,7 +65,7 @@ public class UserDb {
         List<User> users = new ArrayList<User>();
         try {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from users");
+            ResultSet rs = statement.executeQuery("select * from user");
             while (rs.next()) {
                 User user = new User();
                 user.setUsername(rs.getString("username"));
@@ -82,5 +82,19 @@ public class UserDb {
         }
 
         return users;
+    }
+    
+    public boolean checkLogin(User user) {
+        boolean ret = false;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE username=? and password=?");
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            ResultSet rs = preparedStatement.executeQuery();
+            ret = rs.first();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 }
