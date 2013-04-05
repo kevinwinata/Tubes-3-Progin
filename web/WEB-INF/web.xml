@@ -28,6 +28,12 @@
         <servlet-name>ListEmail</servlet-name>
         <servlet-class>controller.ListEmail</servlet-class>
     </servlet>
+    <servlet>
+        <description/>
+        <display-name>ListKategori</display-name>
+        <servlet-name>ListKategori</servlet-name>
+        <servlet-class>controller.ListKategori</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -43,5 +49,9 @@
     <servlet-mapping>
         <servlet-name>ListEmail</servlet-name>
         <url-pattern>/ListEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListKategori</servlet-name>
+        <url-pattern>/ListKategori</url-pattern>
     </servlet-mapping>
 </web-app>
