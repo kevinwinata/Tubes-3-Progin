@@ -20,18 +20,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dboperation.UserDb;
+import dboperation.KategoriDb;
 import model.User;
+import model.Kategori;
 /**
  *
  * @author Kevin
  */
 public class Search2 extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private UserDb dboperation;
+    private KategoriDb dboperation;
 
     public Search2() {
         super();
-        dboperation = new UserDb();
+        dboperation = new KategoriDb(); 
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,17 +42,15 @@ public class Search2 extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		if ((field.equals("semua")) || (field.equals("namakategori")))
 		{
-			User result = new User();
-			List<User> users = new ArrayList<User>();
-			users = dboperation.searchUsers(find);
-			if(!users.isEmpty())
+			Kategori result = new Kategori();
+			List<Kategori> kategoris = new ArrayList<Kategori>();
+			kategoris = dboperation.searchKategori(find);
+			if(!kategoris.isEmpty())
 			{
-				while(!users.isEmpty())
+				while(!kategoris.isEmpty())
 				{	
-					result = users.remove(0);
-					out.println("<font color=\"green\">Username : "+ result.getUsername() +"</font><br>");
-					out.println("<font color=\"green\">Fullname : "+ result.getFullname() +"</font><br>");
-					out.println("<img src=\""+ result.getAvatar() + "\" alt=\"\" / height=\"100\" width=\"100\"><br>");
+					result = kategoris.remove(0);
+					out.println("<font color=\"green\">Kategori : "+ result.getNamakategori() +"</font><br>");
 					
 				}
 			}

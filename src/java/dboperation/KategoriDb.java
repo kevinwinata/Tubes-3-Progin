@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import model.Hak;
+import model.Kategori;
 import util.DbUtil;
 /**
  *
@@ -38,5 +39,23 @@ public class KategoriDb {
             e.printStackTrace();
         }
         return rs;
+    }
+	
+	public List<Kategori> searchKategori(String kategori1) {
+        List<Kategori> kategoris = new ArrayList<Kategori>();
+        try {
+            Statement statement = connection.createStatement();
+			String query = "SELECT namakategori FROM kategori WHERE upper(namakategori) LIKE'%" + kategori1 +"%'";
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Kategori kategori = new Kategori();
+                kategori.setNamakategori(rs.getString("namakategori"));;
+                kategoris.add(kategori);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return kategoris;
     }
 }
