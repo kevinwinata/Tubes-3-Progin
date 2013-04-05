@@ -34,6 +34,30 @@
         <servlet-name>ListKategori</servlet-name>
         <servlet-class>controller.ListKategori</servlet-class>
     </servlet>
+	<servlet>
+        <description/>
+        <display-name>SearchPage</display-name>
+        <servlet-name>SearchPage</servlet-name>
+        <servlet-class>controller.SearchPage</servlet-class>
+    </servlet>
+	<servlet>
+        <description/>
+        <display-name>Search</display-name>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>controller.Search</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
+        <display-name>Search2</display-name>
+        <servlet-name>Search2</servlet-name>
+        <servlet-class>controller.Search2</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
+        <display-name>Search3</display-name>
+        <servlet-name>Search3</servlet-name>
+        <servlet-class>controller.Search3</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -53,5 +77,21 @@
     <servlet-mapping>
         <servlet-name>ListKategori</servlet-name>
         <url-pattern>/ListKategori</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>SearchPage</servlet-name>
+        <url-pattern>/SearchPage</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/Search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search2</servlet-name>
+        <url-pattern>/Search2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search3</servlet-name>
+        <url-pattern>/Search3</url-pattern>
     </servlet-mapping>
 </web-app>

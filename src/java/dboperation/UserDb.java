@@ -123,4 +123,24 @@ public class UserDb {
         }
         return ret;
     }
+	
+	public List<User> searchUsers(String user1) {
+        List<User> users = new ArrayList<User>();
+        try {
+            Statement statement = connection.createStatement();
+			String query = "SELECT username,fullname,avatar FROM user WHERE upper(username) LIKE'%" + user1 +"%'";
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                User user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setFullName(rs.getString("fullname"));
+                user.setAvatar(rs.getString("avatar"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
 }
