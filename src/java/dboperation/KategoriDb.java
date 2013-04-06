@@ -58,4 +58,22 @@ public class KategoriDb {
 
         return kategoris;
     }
+	
+	public List<Kategori> searchKategorisLimit(String kategori1, String max) {
+        List<Kategori> kategoris = new ArrayList<Kategori>();
+        try {
+            Statement statement = connection.createStatement();
+			String query = "SELECT namakategori FROM kategori WHERE upper(namakategori) LIKE'%" + kategori1 +"%' "+ max;	
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Kategori kategori = new Kategori();
+                kategori.setNamakategori(rs.getString("namakategori"));;
+                kategoris.add(kategori);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return kategoris;
+    }
 }

@@ -14,7 +14,7 @@
         <link href="styles/search.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="search.js"></script>
 		<script>
-			function searchWord1(){
+			function searchWord1(pagenum){
 				var find = document.search.find.value;
 				var searching = document.search.searching.value;
 				var field = document.search.field.value;
@@ -38,14 +38,14 @@
 				  }
 				  
 				}
-				document.getElementById("task1").innerHTML="ascsacsa";
-				xmlhttp.open("GET","Search?find="+find+"&field="+field,true);
-				document.getElementById("task1").innerHTML="pooooooo";
+
+				xmlhttp.open("GET","Search?find="+find+"&field="+field+"&pagenum="+pagenum,true);;
 				xmlhttp.send();
+
 			}
 		</script>
 		<script>
-			function searchWord2(){
+			function searchWord2(pagenum){
 				var find = document.search.find.value;
 				var searching = document.search.searching.value;
 				var field = document.search.field.value;
@@ -70,12 +70,12 @@
 				  
 				}
 				
-				xmlhttp.open("GET","Search2?find="+find+"&field="+field,true);
+				xmlhttp.open("GET","Search2?find="+find+"&field="+field+"&pagenum="+pagenum,true);
 				xmlhttp.send();
 			}
 		</script>
 		<script>
-			function searchWord3(){
+			function searchWord3(pagenum){
 				var find = document.search.find.value;
 				var searching = document.search.searching.value;
 				var field = document.search.field.value;
@@ -100,7 +100,7 @@
 				  
 				}
 				
-				xmlhttp.open("GET","Search3?find="+find+"&field="+field,true);
+				xmlhttp.open("GET","Search3?find="+find+"&field="+field+"&pagenum="+pagenum,true);
 				xmlhttp.send();
 			}
 		</script>
@@ -137,9 +137,9 @@
 		</script>
 		<script>
 			function searchWords(){
-					searchWord1();
-					searchWord2();
-					searchWord3();
+					searchWord1(0);
+					searchWord2(0);
+					searchWord3(0);
 			}
 		</script>
         <script>

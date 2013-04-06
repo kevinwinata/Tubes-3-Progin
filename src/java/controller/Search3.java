@@ -56,7 +56,7 @@ public class Search3 extends HttpServlet {
 			}
 			else
 			{
-				out.println("<font color=\"red\">Username tidak ditemukan</font>");
+				out.println("<font color=\"red\">Task atau tag tidak ditemukan</font>");
 			}
 			out.close();
 		}
