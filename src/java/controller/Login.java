@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dboperation.UserDb;
 import model.User;
@@ -31,14 +32,17 @@ public class Login extends HttpServlet {
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         User user = new User();
         user.setUsername(request.getParameter("username"));
         user.setPassword(request.getParameter("password"));
 
         RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         RequestDispatcher view2 = request.getRequestDispatcher("/dashboard.jsp");
-        if (dboperation.checkLogin(user))
+        if (dboperation.checkLogin(user)) {
             view2.forward(request, response);
+            session.setAttribute("id", request.getParameter("username"));
+        }
         else {
             request.setAttribute("q", "0");
             view.forward(request, response);
