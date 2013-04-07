@@ -1,7 +1,7 @@
 <%-- 
-    Document   : index
+    Document   : dashboard
     Created on : Apr 2, 2013, 2:05:42 PM
-    Author     : Mario
+    Author     : Kevin Winata
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -33,6 +33,25 @@
 		xmlhttp.send();
 	}
         
+        function HakPengguna(){
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+		  // code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		}
+		else {
+		  // code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function() {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			document.getElementById("pengguna").innerHTML=xmlhttp.responseText;
+		  }
+		}
+		xmlhttp.open("GET","HakPengguna",true);
+		xmlhttp.send();
+	}
+        
 	function showTask(uidkategori){
 		var xmlhttp;
 		if (window.XMLHttpRequest) {
@@ -53,7 +72,7 @@
 			document.getElementById("deletecategory").style.display = 'block';
 		  }
 		}
-		xmlhttp.open("GET","ListTask?q="+uidkategori,true);
+		xmlhttp.open("GET","ListTask?q=mooray&t="+uidkategori,true);
 		xmlhttp.send();
 	}
 
@@ -76,7 +95,7 @@
 			document.getElementById("tambahtaskblock").innerHTML="";
 			}
 		}
-		xmlhttp.open("GET","ListTaskDefault",true);
+		xmlhttp.open("GET","ListTaskDefault?q=moonray",true);
 		xmlhttp.send();
 	}
 </script>
@@ -86,41 +105,41 @@
 <%
 String idkategori = (String) request.getAttribute("q");
 
-if (idkategori != null) {
-    out.print("<body onLoad=\"ListKategori();showTaskDefault()\">");
+if (idkategori == null) {
+    out.print("<body onLoad=\"ListKategori();HakPengguna();showTaskDefault()\">");
 }
 else {
-    out.print("<body onLoad=\"ListKategori();showTask("+idkategori+")\">");
+    out.print("<body onLoad=\"ListKategori();HakPengguna();showTask("+idkategori+")\">");
 }
 %>
 	<div id="container">
 		<div id="header">
         	<div class=logo id="logo">
-				<a href="dashboard.html"><img src="images/logo.png" title="Home" alt="Home"/></a>
+				<a href="dashboard.jsp"><img src="images/logo.png" title="Home" alt="Home"/></a>
 			</div>
 			<div id="space">
 			</div>
 			<div class = "menu" id = "search">
-				 <form name="search" method="post" action="search.php">
-					 Search for: <input type="text" name="find" /> in 
-					 <Select NAME="field">
-					 <Option VALUE="semua">Semua</option>
-					 <Option VALUE="username">Username</option>
-					 <Option VALUE="namakategori">Judul Kategori</option>
-					 <Option VALUE="tasktag">Task atau Tag</option>
-					 </Select>
-					 <input type="hidden" name="searching" value="yes" />
-					 <button type="submit" id="searchbutton"></button>
-				 </form>
-			</div>
-			<div class="menu" id="logout" action="logout.php">
-				<a href="index.php">Logout</a>
+                            <form name="search" method="get" action="SearchPage">
+                                Search for: <input type="text" onkeyup= "searchWords();" name="find"/> in 
+                                <Select NAME="field" onchange= "searchWords();">
+                                    <Option VALUE="semua">Semua</option>
+                                    <Option VALUE="username">Username</option>
+                                    <Option VALUE="namakategori">Judul Kategori</option>
+                                    <Option VALUE="tasktag">Task atau Tag</option>
+                                </Select>
+                                <input type="hidden" name="searching" value="yes" />
+                                <button type="submit" id="searchbutton" onclick= "searchWords();"></button>
+                            </form>
+                        </div>
+			<div class="menu" id="logout" action="Logout">
+				<a href="index.jsp">Logout</a>
 			</div>
 			<div class="menu" id="home">
-				<a href="dashboard.php">Home</a>
+				<a href="dashboard.jsp">Home</a>
 			</div>
 			<div class="menu" id="profile">
-				<a href="profile.php">
+				<a href="profile.jsp">
 				Profile</a>
 			</div>
         </div>
@@ -177,6 +196,7 @@ else {
 		<div id="fs">
 			<fieldset>
 				<legend>Pengguna yang Bisa Mengubah</legend>
+                                <div id="pengguna" name="pengguna"></div>
 			</fieldset>
 		</div>
 		<div class="form_baris">

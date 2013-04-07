@@ -34,7 +34,25 @@
         <servlet-name>ListKategori</servlet-name>
         <servlet-class>controller.ListKategori</servlet-class>
     </servlet>
-	<servlet>
+    <servlet>
+        <description/>
+        <display-name>HakPengguna</display-name>
+        <servlet-name>HakPengguna</servlet-name>
+        <servlet-class>controller.HakPengguna</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
+        <display-name>ListTaskDefault</display-name>
+        <servlet-name>ListTaskDefault</servlet-name>
+        <servlet-class>controller.ListTaskDefault</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
+        <display-name>ListTask</display-name>
+        <servlet-name>ListTask</servlet-name>
+        <servlet-class>controller.ListTask</servlet-class>
+    </servlet>
+    <servlet>
         <description/>
         <display-name>SearchPage</display-name>
         <servlet-name>SearchPage</servlet-name>
@@ -77,6 +95,18 @@
     <servlet-mapping>
         <servlet-name>ListKategori</servlet-name>
         <url-pattern>/ListKategori</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HakPengguna</servlet-name>
+        <url-pattern>/HakPengguna</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListTaskDefault</servlet-name>
+        <url-pattern>/ListTaskDefault</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListTask</servlet-name>
+        <url-pattern>/ListTask</url-pattern>
     </servlet-mapping>
 	<servlet-mapping>
         <servlet-name>SearchPage</servlet-name>

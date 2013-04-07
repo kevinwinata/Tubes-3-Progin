@@ -41,7 +41,7 @@ public class KategoriDb {
         return rs;
     }
 	
-	public List<Kategori> searchKategori(String kategori1) {
+    public List<Kategori> searchKategori(String kategori1) {
         List<Kategori> kategoris = new ArrayList<Kategori>();
         try {
             Statement statement = connection.createStatement();

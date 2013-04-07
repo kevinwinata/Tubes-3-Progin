@@ -51,5 +51,6 @@ public class ListKategori extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(ListKategori.class.getName()).log(Level.SEVERE, null, ex);
         }
+        out.close();
     }
 }
