@@ -25,6 +25,19 @@ public class HakDb {
         connection = DbUtil.getConnection();
     }
     
+    public void AddHak (Hak hak) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO hak (username, idkategori) VALUES (?, ?)");
+            // Parameters start with 1
+            preparedStatement.setString(1, hak.getUsername());
+            preparedStatement.setString(2, hak.getIdkategori());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public ResultSet getKategori(String username) {
         ResultSet rs = null;
         try {

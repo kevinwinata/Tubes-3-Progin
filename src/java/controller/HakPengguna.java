@@ -39,7 +39,7 @@ public class HakPengguna extends HttpServlet {
         List<User> pengguna = dboperation.getAllUsers();
         for (int i = 0; i < pengguna.size(); i++) {
             User temp = pengguna.get(i);
-            out.println("<div class=gambar_kecil><img src="+temp.getAvatar() +" width=50px height=50px><input type=checkbox name=\"user_berhak[]\" value=\""+temp.getUsername()+"\"/></div>");
+            out.println("<div class=gambar_kecil><img src="+temp.getAvatar() +" width=50px height=50px><input type=checkbox name=\"user_berhak\" value=\""+temp.getUsername()+"\"/></div>");
         }
         out.close();
     }

@@ -183,7 +183,7 @@ else {
 	<!--Popup bikin kategori baru -->
 	<a href="#x" class="overlay" id="category_form"></a>
 	<div class="popup">
-	<form name="addcategory" method="post" action="addcategory.php">
+	<form name="addcategory" method="post" action="AddKategori">
 		<div class="form_baris">
 		
 			<div class="form_kiri">

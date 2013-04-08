@@ -54,6 +54,12 @@
     </servlet>
     <servlet>
         <description/>
+        <display-name>AddKategori</display-name>
+        <servlet-name>AddKategori</servlet-name>
+        <servlet-class>controller.AddKategori</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
         <display-name>SearchPage</display-name>
         <servlet-name>SearchPage</servlet-name>
         <servlet-class>controller.SearchPage</servlet-class>
@@ -107,6 +113,10 @@
     <servlet-mapping>
         <servlet-name>ListTask</servlet-name>
         <url-pattern>/ListTask</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddKategori</servlet-name>
+        <url-pattern>/AddKategori</url-pattern>
     </servlet-mapping>
 	<servlet-mapping>
         <servlet-name>SearchPage</servlet-name>

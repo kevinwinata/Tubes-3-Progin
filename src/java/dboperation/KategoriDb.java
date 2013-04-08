@@ -26,6 +26,32 @@ public class KategoriDb {
         connection = DbUtil.getConnection();
     }
     
+    public boolean isIdExist(String idkategori) {
+        boolean ret = true;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM kategori WHERE idkategori=?");
+            preparedStatement.setString(1, idkategori);
+            ResultSet rs = preparedStatement.executeQuery();
+            ret = rs.first();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+    
+    public void AddKategori (Kategori kategori) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO kategori (idkategori, namakategori) VALUES (?, ? )");
+            // Parameters start with 1
+            preparedStatement.setString(1, kategori.getIdkategori());
+            preparedStatement.setString(2, kategori.getNamakategori());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public List<ResultSet> ListKategori(ResultSet id) {
         List<ResultSet> rs = new ArrayList<ResultSet>();
         try {
