@@ -39,4 +39,42 @@ public class TagDb {
         }
         return isitag;
     }
+    
+    public List<Tag> searchTag(String tag1) {
+        List<Tag> tags = new ArrayList<Tag>();
+        try {
+            Statement statement = connection.createStatement();
+			String query = "SELECT isitag FROM tag,tugas WHERE ((upper(isitag) LIKE'%" + tag1 +"%') OR (upper(namatugas) LIKE'%" + tag1 +"%')) AND tag.idtugas = tugas.idtugas";
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Tag tag = new Tag();
+                tag.setIsitag(rs.getString("isitag"));
+                tags.add(tag);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return tags;
+    }
+	
+	public List<Tag> searchTagsLimit(String tag1, String max) {
+        List<Tag> tags = new ArrayList<Tag>();
+        try {
+            Statement statement = connection.createStatement();
+			String query = "SELECT isitag FROM tag,tugas WHERE ((upper(isitag) LIKE'%" + tag1 +"%') OR (upper(namatugas) LIKE'%" + tag1 +"%')) AND tag.idtugas = tugas.idtugas "+ max;	
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Tag tag = new Tag();
+                tag.setIsitag(rs.getString("isitag"));;
+                tags.add(tag);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return tags;
+    }
 }
+
+

@@ -85,8 +85,9 @@ public class Search2 extends HttpServlet {
 					while(!kategoris.isEmpty())
 					{	
 						result = kategoris.remove(0);
-						out.println("<font color=\"green\">Kategori : "+ result.getNamakategori() +"</font><br>");
-						
+						out.println("<div id=\"isi1\">");
+						out.println("<p style='margin-left: 1em;'>Kategori : "+ result.getNamakategori() +"</p>");
+						out.println("</div>");
 					}
 				}
 				

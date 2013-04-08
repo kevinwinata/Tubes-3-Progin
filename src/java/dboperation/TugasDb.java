@@ -51,6 +51,7 @@ public class TugasDb {
         List<Tugas> listtugas = new ArrayList<Tugas>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tugas WHERE idkategori =?");
+			
             preparedStatement.setString(1, idkategori);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -90,5 +91,45 @@ public class TugasDb {
             e.printStackTrace();
         }
         return listtugas;
+    }
+	
+	public List<Tugas> searchTugas(String tugas1) {
+        List<Tugas> tugass = new ArrayList<Tugas>();
+        try {
+            Statement statement = connection.createStatement();
+			String query = "SELECT * FROM tag,tugas WHERE ((upper(isitag) LIKE'%" + tugas1 +"%') OR (upper(namatugas) LIKE'%" + tugas1 +"%')) AND tag.idtugas = tugas.idtugas";
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Tugas tugas = new Tugas();
+                tugas.setDeadline(rs.getDate("deadline"));
+				tugas.setNamatugas(rs.getString("namatugas"));
+				tugas.setStatus(rs.getString("status"));
+                tugass.add(tugas);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return tugass;
+    }
+	
+	public List<Tugas> searchTugasLimit(String tugas1, String max) {
+        List<Tugas> tugass = new ArrayList<Tugas>();
+        try {
+            Statement statement = connection.createStatement();
+			String query = "SELECT * FROM tag,tugas WHERE ((upper(isitag) LIKE'%" + tugas1 +"%') OR (upper(namatugas) LIKE'%" + tugas1 +"%')) AND tag.idtugas = tugas.idtugas "+ max;	
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Tugas tugas = new Tugas();
+                tugas.setDeadline(rs.getDate("deadline"));
+				tugas.setNamatugas(rs.getString("namatugas"));
+				tugas.setStatus(rs.getString("status"));
+                tugass.add(tugas);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return tugass;
     }
 }

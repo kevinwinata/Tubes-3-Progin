@@ -83,10 +83,11 @@ public class Search extends HttpServlet {
 					while(!users.isEmpty())
 					{	
 						result = users.remove(0);
-						out.println("<font color=\"green\">Username : "+ result.getUsername() +"</font><br>");
-						out.println("<font color=\"green\">Fullname : "+ result.getFullname() +"</font><br>");
-						out.println("<img src=\""+ result.getAvatar() + "\" alt=\"\" / height=\"100\" width=\"100\"><br>");
-						
+						out.println("<div id=\"isi1\">");
+						out.println("<p style='margin-left: 1em;'>Username : "+ result.getUsername() +"</p>");
+						out.println("<p style='margin-left: 3em;'>Fullname : "+ result.getFullname() +"</p>");
+						out.println("<p style='margin-left: 3em;'><img src=\""+ result.getAvatar() + "\" alt=\"\" / height=\"100\" width=\"100\"></p>");
+						out.println("</div>");
 					}
 				}
 				
