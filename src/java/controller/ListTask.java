@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import model.User;
 import model.Tugas;
 import model.Assignee;
@@ -45,8 +46,9 @@ public class ListTask extends HttpServlet {
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("q");
-        String kategori = request.getParameter("t");
+        HttpSession session = request.getSession();
+        String username = session.getAttribute("id").toString();
+        String kategori = request.getParameter("q");
         PrintWriter out = response.getWriter();
         
         List<Tugas> tugaskategori = dbtugas.getTugasKategori(kategori);
@@ -66,7 +68,7 @@ public class ListTask extends HttpServlet {
                 status += "checked";
             out.println("<div>Status : <input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"location.href='changestatus.php?q="+temp.getIdtugas()+"'\"></div>");
             if (username.equals("moonray"))
-                out.println("</div><button onclick=\"location.href='deletetask.php?q="+temp.getIdtugas()+"'\">Hapus Task...</button></div>");
+                out.println("</div><button onclick=\"location.href='DeleteTugas?q="+temp.getIdtugas()+"'\">Hapus Task...</button></div>");
             else
                 out.println("</div></div>");
         }

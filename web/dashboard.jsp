@@ -29,7 +29,7 @@
 			document.getElementById("listkategori").innerHTML=xmlhttp.responseText;
 		  }
 		}
-		xmlhttp.open("GET","ListKategori?q=moonray",true);
+		xmlhttp.open("GET","ListKategori",true);
 		xmlhttp.send();
 	}
         
@@ -68,11 +68,11 @@
 			document.getElementById("listtaskdefault").style.display = 'none';
 			document.getElementById("listtask").style.display = 'block';
 			document.getElementById("tambahtaskblock").innerHTML="<div class=task_block id=tambah_task onclick=\"location.href='newtask.php?q="+uidkategori+"'\"><p>Tambah Task...</p></div>";
-			document.getElementById("deletecategory").innerHTML="<div class=hapus_category_block onclick=\"location.href='deletecategory.php?q="+uidkategori+"'\"><div class=category_name>Hapus Kategori...</div></div>";
+			document.getElementById("deletecategory").innerHTML="<div class=hapus_category_block onclick=\"location.href='DeleteKategori?q="+uidkategori+"'\"><div class=category_name>Hapus Kategori...</div></div>";
 			document.getElementById("deletecategory").style.display = 'block';
 		  }
 		}
-		xmlhttp.open("GET","ListTask?q=mooray&t="+uidkategori,true);
+		xmlhttp.open("GET","ListTask?q="+uidkategori,true);
 		xmlhttp.send();
 	}
 

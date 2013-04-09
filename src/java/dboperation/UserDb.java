@@ -61,6 +61,26 @@ public class UserDb {
         }
     }
     
+    public User getUser(String username) {
+        User user = new User();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE username =?");
+            preparedStatement.setString(1, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setFullName(rs.getString("fullname"));
+            user.setBirthdate(rs.getDate("birthdate"));
+            user.setPhonenumber(rs.getString("phonenumber"));
+            user.setEmail(rs.getString("email"));
+            user.setAvatar(rs.getString("avatar"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
         try {
@@ -125,42 +145,42 @@ public class UserDb {
     }
 	
 	public List<User> searchUsers(String user1) {
-        List<User> users = new ArrayList<User>();
-        try {
-            Statement statement = connection.createStatement();
-			String query = "SELECT username,fullname,avatar FROM user WHERE upper(username) LIKE'%" + user1 +"%'";
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                User user = new User();
-                user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullname"));
-                user.setAvatar(rs.getString("avatar"));
-                users.add(user);
+            List<User> users = new ArrayList<User>();
+            try {
+                Statement statement = connection.createStatement();
+                            String query = "SELECT username,fullname,avatar FROM user WHERE upper(username) LIKE'%" + user1 +"%'";
+                ResultSet rs = statement.executeQuery(query);
+                while (rs.next()) {
+                    User user = new User();
+                    user.setUsername(rs.getString("username"));
+                    user.setFullName(rs.getString("fullname"));
+                    user.setAvatar(rs.getString("avatar"));
+                    users.add(user);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        return users;
-    }
+            return users;
+        }
 	
 	public List<User> searchUsersLimit(String user1, String max) {
-        List<User> users = new ArrayList<User>();
-        try {
-            Statement statement = connection.createStatement();
-			String query = "SELECT username,fullname,avatar FROM user WHERE upper(username) LIKE'%" + user1 +"%' "+ max;
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                User user = new User();
-                user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullname"));
-                user.setAvatar(rs.getString("avatar"));
-                users.add(user);
+            List<User> users = new ArrayList<User>();
+            try {
+                Statement statement = connection.createStatement();
+                            String query = "SELECT username,fullname,avatar FROM user WHERE upper(username) LIKE'%" + user1 +"%' "+ max;
+                ResultSet rs = statement.executeQuery(query);
+                while (rs.next()) {
+                    User user = new User();
+                    user.setUsername(rs.getString("username"));
+                    user.setFullName(rs.getString("fullname"));
+                    user.setAvatar(rs.getString("avatar"));
+                    users.add(user);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        return users;
-    }
+            return users;
+        }
 }

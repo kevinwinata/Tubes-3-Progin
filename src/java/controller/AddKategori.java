@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Hak;
 import model.Kategori;
 /**
@@ -40,7 +41,8 @@ public class AddKategori extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Kategori kategori = new Kategori();
         String[] userberhak = request.getParameterValues("user_berhak");
-        String currentuser = "moonray";
+        HttpSession session = request.getSession();
+        String currentuser = session.getAttribute("id").toString();
         
         String idkategori;
         do {

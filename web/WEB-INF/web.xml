@@ -60,6 +60,18 @@
     </servlet>
     <servlet>
         <description/>
+        <display-name>DeleteKategori</display-name>
+        <servlet-name>DeleteKategori</servlet-name>
+        <servlet-class>controller.DeleteKategori</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
+        <display-name>DeleteTugas</display-name>
+        <servlet-name>DeleteTugas</servlet-name>
+        <servlet-class>controller.DeleteTugas</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
         <display-name>SearchPage</display-name>
         <servlet-name>SearchPage</servlet-name>
         <servlet-class>controller.SearchPage</servlet-class>
@@ -117,6 +129,14 @@
     <servlet-mapping>
         <servlet-name>AddKategori</servlet-name>
         <url-pattern>/AddKategori</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteKategori</servlet-name>
+        <url-pattern>/DeleteKategori</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTugas</servlet-name>
+        <url-pattern>/DeleteTugas</url-pattern>
     </servlet-mapping>
 	<servlet-mapping>
         <servlet-name>SearchPage</servlet-name>

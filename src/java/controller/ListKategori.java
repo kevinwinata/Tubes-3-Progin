@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import model.Kategori;
 /**
  *
@@ -39,7 +40,8 @@ public class ListKategori extends HttpServlet {
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("q");
+        HttpSession session = request.getSession();
+        String username = session.getAttribute("id").toString();
         PrintWriter out = response.getWriter();
         ResultSet idkategori = dbhak.getKategori(username);
         List<ResultSet> rs = dbkategori.ListKategori(idkategori);
