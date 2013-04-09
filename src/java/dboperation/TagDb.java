@@ -24,8 +24,28 @@ public class TagDb {
     public TagDb() {
         connection = DbUtil.getConnection();
     }
+	
+	public List<Tag> getTag(String idtugas) {
+        List<Tag> listtag = new ArrayList<Tag>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tag WHERE idtugas=?");
+            preparedStatement.setString(1, idtugas);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                Tag tag = new Tag();
+                tag.setIdtugas(rs.getString("idtugas"));
+                tag.setIsitag(rs.getString("isitag"));
+                listtag.add(tag);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listtag;
+    }
     
-    public List<String> getTag(String idtugas) {
+    public List<String> getTagString(String idtugas) {
         List<String> isitag = new ArrayList<String>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT isitag FROM tag WHERE idtugas =?");

@@ -11,6 +11,7 @@ import java.util.Date;
 public class Tugas {
     private String idtugas;
     private String namatugas;
+    private String attachment;
     private Date deadline;
     private String idkategori;
     private String username;
@@ -46,6 +47,14 @@ public class Tugas {
 
     public void setNamatugas(String namatugas) {
         this.namatugas = namatugas;
+    }
+    
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
     }
 
     public String getStatus() {

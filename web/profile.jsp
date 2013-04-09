@@ -4,6 +4,15 @@
     Author     : Mario
 --%>
 
+
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="dboperation.TagDb"%>
+<%@page import="model.Tag"%>
+<%@page import="dboperation.TugasDb"%>
+<%@page import="model.Tugas"%>
+<%@page import="dboperation.UserDb"%>
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -97,12 +106,12 @@
             if ((fullname.length==0) &&
                 (password.length==0) && 
                 (cpassword.length==0) &&
-                (tanggal == "1") && (bulan == "January") && (tahun == "1955") &&
+                (tanggal == "1") && (bulan == "1") && (tahun == "1955") &&
                 (avatar.length == 0)
-        ) {
-                alert("Tidak ada atribut profile yang diubah!");
-                return false;
-            }
+            ) {
+                    alert("Tidak ada atribut profile yang diubah!");
+                    return false;
+                }
             if (password == cpassword) {
                 return true;
             } else {
@@ -140,24 +149,41 @@
                     <a href="dashboard.php">Home</a>
                 </div>
                 <div class="menu" id="profile">
-                    <a href="profile.php">
-                        <img alt="" height=25 width=25 src="${user.avatar}">
-						${user.username}
-					</a>
+                    <a href="profile.jsp">
+                        <img alt="" height=25 width=25 src="
+                        <%
+                            session = request.getSession();
+                            UserDb userdb = new UserDb();
+                            User user = new User();
+
+                            user = userdb.getUser(session.getAttribute("id").toString());
+                            out.print(user.getAvatar());
+                        %>
+                        ">
+                        <%
+                            out.print(user.getUsername());
+                        %>
+                    </a>
                 </div>
 
             </div>
             <div id="profilearea">
                 <div class="profilephoto">
-					<img alt ="" src="${user.avatar}">
+                    <img alt ="" src="
+                    <%
+                        out.print(user.getAvatar());
+                    %>
+                    ">
                 </div>
                 <div class="biodata">
-					</br>
-                    Username : ${user.username} </br></br>
-					Fullname : ${user.fullname}	</br></br>
-					Birthdate : ${user.birthdate} </br></br>
-					Handphone : ${user.phonenumber} </br></br>
-					Email : ${user.email}
+                    <%
+                        out.print("</br>");
+                        out.print("Username : " + user.getUsername() + "</br></br>");
+                        out.print("Fullname : " + user.getFullname() + "</br></br>");
+                        out.print("Birthdate : " + user.getBirthdate() + "</br></br>");
+                        out.print("Handphone : " + user.getPhonenumber() + "</br></br>");
+                        out.print("Email : " + user.getEmail());
+                    %>
                     <a href="#editprofile_form"><button type="button" id="editbutton"></button></a>
                 </div>
             </div>
@@ -169,134 +195,147 @@
                     Done Task
                 </div>
                 <div id="undonetask">
-                    <?php
-                    $result = mysql_query("SELECT * FROM tugas WHERE username='$_SESSION[id]' AND status='undone'");
-                    while($row = mysql_fetch_array($result)) {
-                    echo "<div class=\"task_block\">";
-                        echo 	"<div class=\"task_judul\">";
-                            echo 	$row['namatugas'];
-                            echo 	"</div>";
-                        echo 	"<div class=\"task_deadline\">";
-                            echo	"Deadline: ".date('d F Y',strtotime($row['deadline']));
-                            echo	"</div>";
-                        echo	"<div class=\"task_tag\">";
-                            echo	"Tags: ";
-                            $result2 = mysql_query("SELECT * FROM tag WHERE idtugas='$row[idtugas]'");
-                            $count = mysql_num_rows($result2);
-                            while($row2 = mysql_fetch_array($result2)) {
-                            if ($count == 1) {
-                            echo $row2['isitag'];
-                            } else {
-                            echo $row2['isitag'].", ";
-                            $count--;
+                    <%
+                        TugasDb tugasdb = new TugasDb();
+                        TagDb tagdb = new TagDb();
+                        List<Tugas> listtugas = new ArrayList<Tugas>();
+
+                        listtugas = tugasdb.getTugas((session.getAttribute("id").toString()),"undone");
+                        
+                        for (int i=0; i<listtugas.size(); i++) {
+                            out.print("<div class=\"task_block\">");
+                            
+                            out.print("<div class=\"task_judul\">");
+                            out.print(listtugas.get(i).getNamatugas());
+                            out.print("</div>");
+                            
+                            out.print("<div class=\"task_deadline\">");
+                            out.print("Deadline : " + listtugas.get(i).getDeadline().toString());
+                            out.print("</div>");
+                            
+                            out.print("<div class=\"task_tag\">");
+                            out.print("Tag : ");
+                            List<Tag> listtag = new ArrayList<Tag>();
+                            listtag = tagdb.getTag(listtugas.get(i).getIdtugas());
+                            for (int j=0; j<listtag.size(); j++) {
+                                if (j == listtag.size()-1)
+                                    out.print(listtag.get(j).getIsitag());
+                                else
+                                    out.print(listtag.get(j).getIsitag() + ", ");
                             }
+                            out.print("</div>");
+                            
+                            out.print("</div>");
+                        }
+                        
+                        listtugas.clear();
+                        listtugas = tugasdb.getTugasByAssignee((session.getAttribute("id").toString()),"undone");
+                        
+                        for (int i=0; i<listtugas.size(); i++) {
+                            out.print("<div class=\"task_block\">");
+                            
+                            out.print("<div class=\"task_judul\">");
+                            out.print(listtugas.get(i).getNamatugas());
+                            out.print("</div>");
+                            
+                            out.print("<div class=\"task_deadline\">");
+                            out.print("Deadline : " + listtugas.get(i).getDeadline().toString());
+                            out.print("</div>");
+                            
+                            out.print("<div class=\"task_tag\">");
+                            out.print("Tag : ");
+                            List<Tag> listtag = new ArrayList<Tag>();
+                            listtag = tagdb.getTag(listtugas.get(i).getIdtugas());
+                            for (int j=0; j<listtag.size(); j++) {
+                                if (j == listtag.size()-1)
+                                    out.print(listtag.get(j).getIsitag());
+                                else
+                                    out.print(listtag.get(j).getIsitag() + ", ");
                             }
-                            echo	"</div>";
-                        echo "</div>";
-                    }
-                    $result = mysql_query("SELECT * FROM tugas JOIN assignee WHERE assignee.username='$_SESSION[id]' AND tugas.idtugas=assignee.idtugas AND status='undone'");
-                    while($row = mysql_fetch_array($result)) {
-                    echo "<div class=\"task_block\">";
-                        echo 	"<div class=\"task_judul\">";
-                            echo 	$row['namatugas'];
-                            echo 	"</div>";
-                        echo 	"<div class=\"task_deadline\">";
-                            echo	"Deadline: ".date('d F Y',strtotime($row['deadline']));
-                            echo	"</div>";
-                        echo	"<div class=\"task_tag\">";
-                            echo	"Tags: ";
-                            $result2 = mysql_query("SELECT * FROM tag WHERE idtugas='$row[idtugas]'");
-                            $count = mysql_num_rows($result2);
-                            while($row2 = mysql_fetch_array($result2)) {
-                            if ($count == 1) {
-                            echo $row2['isitag'];
-                            } else {
-                            echo $row2['isitag'].", ";
-                            $count--;
-                            }
-                            }
-                            echo	"</div>";
-                        echo "</div>";
-                    }
-                    ?>
+                            out.print("</div>");
+                            
+                            out.print("</div>");
+                        }
+                    %>
                 </div>
                 <div id="donetask">
-                    <?php
-                    $result = mysql_query("SELECT * FROM tugas WHERE username='$_SESSION[id]' AND status='done'");
-                    while($row = mysql_fetch_array($result)) {
-                    echo "<div class=\"task_block\">";
-                        echo 	"<div class=\"task_judul\">";
-                            echo 	$row['namatugas'];
-                            echo 	"</div>";
-                        echo 	"<div class=\"task_deadline\">";
-                            echo	"Deadline: ".date('d F Y',strtotime($row['deadline']));
-                            echo	"</div>";
-                        echo	"<div class=\"task_tag\">";
-                            echo	"Tags: ";
-                            $result2 = mysql_query("SELECT * FROM tag WHERE idtugas='$row[idtugas]'");
-                            $count = mysql_num_rows($result2);
-                            while($row2 = mysql_fetch_array($result2)) {
-                            if ($count == 1) {
-                            echo $row2['isitag'];
-                            } else {
-                            echo $row2['isitag'].", ";
-                            $count--;
+                    <%
+                        listtugas.clear();
+                        listtugas = tugasdb.getTugas((session.getAttribute("id").toString()),"done");
+                        
+                        for (int i=0; i<listtugas.size(); i++) {
+                            out.print("<div class=\"task_block\">");
+                            
+                            out.print("<div class=\"task_judul\">");
+                            out.print(listtugas.get(i).getNamatugas());
+                            out.print("</div>");
+                            
+                            out.print("<div class=\"task_deadline\">");
+                            out.print("Deadline : " + listtugas.get(i).getDeadline().toString());
+                            out.print("</div>");
+                            
+                            out.print("<div class=\"task_tag\">");
+                            out.print("Tag : ");
+                            List<Tag> listtag = new ArrayList<Tag>();
+                            listtag = tagdb.getTag(listtugas.get(i).getIdtugas());
+                            for (int j=0; j<listtag.size(); j++) {
+                                if (j == listtag.size()-1)
+                                    out.print(listtag.get(j).getIsitag());
+                                else
+                                    out.print(listtag.get(j).getIsitag() + ", ");
                             }
+                            out.print("</div>");
+                            
+                            out.print("</div>");
+                        }
+                        
+                        listtugas.clear();
+                        listtugas = tugasdb.getTugasByAssignee((session.getAttribute("id").toString()),"done");
+                        
+                        for (int i=0; i<listtugas.size(); i++) {
+                            out.print("<div class=\"task_block\">");
+                            
+                            out.print("<div class=\"task_judul\">");
+                            out.print(listtugas.get(i).getNamatugas());
+                            out.print("</div>");
+                            
+                            out.print("<div class=\"task_deadline\">");
+                            out.print("Deadline : " + listtugas.get(i).getDeadline().toString());
+                            out.print("</div>");
+                            
+                            out.print("<div class=\"task_tag\">");
+                            out.print("Tag : ");
+                            List<Tag> listtag = new ArrayList<Tag>();
+                            listtag = tagdb.getTag(listtugas.get(i).getIdtugas());
+                            for (int j=0; j<listtag.size(); j++) {
+                                if (j == listtag.size()-1)
+                                    out.print(listtag.get(j).getIsitag());
+                                else
+                                    out.print(listtag.get(j).getIsitag() + ", ");
                             }
-                            echo	"</div>";
-                        echo "</div>";
-                    }
-                    $result = mysql_query("SELECT * FROM tugas JOIN assignee WHERE assignee.username='$_SESSION[id]' AND tugas.idtugas=assignee.idtugas AND status='done'");
-                    while($row = mysql_fetch_array($result)) {
-                    echo "<div class=\"task_block\">";
-                        echo 	"<div class=\"task_judul\">";
-                            echo 	$row['namatugas'];
-                            echo 	"</div>";
-                        echo 	"<div class=\"task_deadline\">";
-                            echo	"Deadline: ".date('d F Y',strtotime($row['deadline']));
-                            echo	"</div>";
-                        echo	"<div class=\"task_tag\">";
-                            echo	"Tags: ";
-                            $result2 = mysql_query("SELECT * FROM tag WHERE idtugas='$row[idtugas]'");
-                            $count = mysql_num_rows($result2);
-                            while($row2 = mysql_fetch_array($result2)) {
-                            if ($count == 1) {
-                            echo $row2['isitag'];
-                            } else {
-                            echo $row2['isitag'].", ";
-                            $count--;
-                            }
-                            }
-                            echo	"</div>";
-                        echo "</div>";
-                    }
-                    ?>
+                            out.print("</div>");
+                            
+                            out.print("</div>");
+                        }
+                    %>
                 </div>
             </div>
 
             <!--Popup edit profile -->
             <a href="#x" class="overlay" id="editprofile_form"></a>
             <div class="popup">
-                <form name="editprofile" method="post" onSubmit="return check(document.editprofile.nama_lengkap.value,
-                            document.editprofile.password.value,
-                            document.editprofile.confirm_password.value,
-                            document.editprofile.tanggal.value, document.editprofile.bulan.value, document.editprofile.tahun.value,
-                            document.editprofile.avatar.value)" action="editprofile.php" enctype="multipart/form-data">
-                    Fullname : <input name="nama_lengkap" id="nama_lengkap" type="text" maxlength="256" onKeyUp="validateFullName(document.editprofile.nama_lengkap.value)"><br>
+                <form name="editprofile" method="post" onSubmit="return check(
+                document.editprofile.fullname.value,
+                document.editprofile.password.value,
+                document.editprofile.confirm_password.value,
+                document.editprofile.tanggal.value,
+                document.editprofile.bulan.value,
+                document.editprofile.tahun.value,
+                document.editprofile.avatar.value)" action="EditProfile" enctype="multipart/form-data">
+                    Fullname : <input name="fullname" type="text" maxlength="256" onKeyUp="validateFullName(document.editprofile.fullname.value)"><br>
                     <div id="v_nama">
                     </div>
-                    Password : <input name="password" type="password" maxlength="24" onKeyUp="checkPass(document.editprofile.password.value,
-					<?php
-                                    echo "'".$_SESSION['id']."'";
-                                      ?>
-                                      ,
-                                      <?php
-                                      $result = mysql_query("SELECT * FROM user WHERE username='$_SESSION[id]'");
-                                      while($row = mysql_fetch_array($result)) {
-                                      echo "'".$row['email']."'";
-                                      }
-                                      ?>
-                                      )"> <br>
+                    Password : <input name="password" type="password" maxlength="24" onKeyUp="checkPass(document.editprofile.password.value,<% out.print("'" + user.getUsername() + "','" + user.getEmail() + "'"); %>)"> <br>
                     <div id="v_pass">
                     </div>
                     Confirm Password : <input name="confirm_password" type="password" maxlength="24" onKeyUp="checkCPass(document.editprofile.confirm_password.value, document.editprofile.password.value)"><br>
@@ -307,18 +346,18 @@
 
                     </select>
                     <select name="bulan">
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
                     </select>
                     <select name="tahun" id="thn">
 

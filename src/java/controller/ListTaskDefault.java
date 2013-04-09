@@ -56,7 +56,7 @@ public class ListTaskDefault extends HttpServlet {
             out.println("<div class=task_block><div class=task_judul><a href=\"viewtask.php?q="+temp.getIdtugas()+"\">"
                     +temp.getNamatugas()+"</a></div><div class=task_deadline> Deadline : "
                     +temp.getDeadline().toString()+"</div><div class=task_tag>Tags: ");
-            List<String> tagpribadi = dbtag.getTag(temp.getIdtugas());
+            List<String> tagpribadi = dbtag.getTagString(temp.getIdtugas());
             for (int j = 0; j < tagpribadi.size(); j++) {
                 out.print(tagpribadi.get(j)+"");
                 if (j < (tagpribadi.size() - 1)) 
@@ -76,7 +76,7 @@ public class ListTaskDefault extends HttpServlet {
             out.println("<div class=task_block><div class=task_judul><a href=\"viewtask.php?q="+temp.getIdtugas()+"\">"
                     +temp.getNamatugas()+"</a></div><div class=task_deadline> Deadline : "
                     +temp.getDeadline().toString()+"</div><div class=task_tag>Tags: ");
-            List<String> tagassign = dbtag.getTag(temp.getIdtugas());
+            List<String> tagassign = dbtag.getTagString(temp.getIdtugas());
             for (int j = 0; j < tagassign.size(); j++) {
                 out.print(tagassign.get(j)+"");
                 if (j < (tagassign.size() - 1)) 

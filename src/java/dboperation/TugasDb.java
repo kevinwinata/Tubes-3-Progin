@@ -25,6 +25,58 @@ public class TugasDb {
         connection = DbUtil.getConnection();
     }
     
+	public List<Tugas> getTugas(String username, String status) {
+        List<Tugas> listtugas = new ArrayList<Tugas>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tugas WHERE username=? AND status=?");
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, status);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                Tugas tugas = new Tugas();
+                tugas.setIdtugas(rs.getString("idtugas"));
+                tugas.setNamatugas(rs.getString("namatugas"));
+                tugas.setAttachment(rs.getString("attachment"));
+                tugas.setDeadline(rs.getDate("deadline"));
+                tugas.setIdkategori(rs.getString("idkategori"));
+                tugas.setUsername(rs.getString("username"));
+                tugas.setStatus(rs.getString("status"));
+                listtugas.add(tugas);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listtugas;
+    }
+    
+    public List<Tugas> getTugasByAssignee(String username, String status) {
+        List<Tugas> listtugas = new ArrayList<Tugas>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tugas JOIN assignee WHERE assignee.username=? AND status=? AND tugas.idtugas=assignee.idtugas");
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, status);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                Tugas tugas = new Tugas();
+                tugas.setIdtugas(rs.getString("idtugas"));
+                tugas.setNamatugas(rs.getString("namatugas"));
+                tugas.setAttachment(rs.getString("attachment"));
+                tugas.setDeadline(rs.getDate("deadline"));
+                tugas.setIdkategori(rs.getString("idkategori"));
+                tugas.setUsername(rs.getString("username"));
+                tugas.setStatus(rs.getString("status"));
+                listtugas.add(tugas);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listtugas;
+    }
+	
     public List<Tugas> getTugasUsername(String username) {
         List<Tugas> listtugas = new ArrayList<Tugas>();
         try {
@@ -36,6 +88,7 @@ public class TugasDb {
                 tugas.setIdtugas(rs.getString("idtugas"));
                 tugas.setNamatugas(rs.getString("namatugas"));
                 tugas.setDeadline(rs.getDate("deadline"));
+				tugas.setAttachment(rs.getString("attachment"));
                 tugas.setIdkategori(rs.getString("idkategori"));
                 tugas.setUsername(rs.getString("username"));
                 tugas.setStatus(rs.getString("status"));
@@ -59,6 +112,7 @@ public class TugasDb {
                 tugas.setIdtugas(rs.getString("idtugas"));
                 tugas.setNamatugas(rs.getString("namatugas"));
                 tugas.setDeadline(rs.getDate("deadline"));
+				tugas.setAttachment(rs.getString("attachment"));
                 tugas.setIdkategori(rs.getString("idkategori"));
                 tugas.setUsername(rs.getString("username"));
                 tugas.setStatus(rs.getString("status"));
@@ -82,6 +136,7 @@ public class TugasDb {
                 tugas.setIdtugas(rs.getString("idtugas"));
                 tugas.setNamatugas(rs.getString("namatugas"));
                 tugas.setDeadline(rs.getDate("deadline"));
+				tugas.setAttachment(rs.getString("attachment"));
                 tugas.setIdkategori(rs.getString("idkategori"));
                 tugas.setUsername(rs.getString("username"));
                 tugas.setStatus(rs.getString("status"));
