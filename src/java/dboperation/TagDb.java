@@ -66,7 +66,7 @@ public class TagDb {
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 Tag tag = new Tag();
-                tag.setIsitag(rs.getString("isitag"));;
+                tag.setIsitag(rs.getString("isitag"));
                 tags.add(tag);
             }
         } catch (SQLException e) {
@@ -74,6 +74,20 @@ public class TagDb {
         }
 
         return tags;
+    }
+	
+	public void editTag(Tag tag) {
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("update tag set isitag=? where idtugas=?;");
+            // Parameters start with 1
+            preparedStatement.setString(1, tag.getIsitag());
+            preparedStatement.setString(2, tag.getIdtugas());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

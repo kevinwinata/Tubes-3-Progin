@@ -132,4 +132,32 @@ public class TugasDb {
 
         return tugass;
     }
+	
+	public void editDeadline(Tugas tugas) {
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("update tugas set deadline=? where idtugas=?;");
+            // Parameters start with 1
+            preparedStatement.setDate(1, new java.sql.Date(tugas.getDeadline().getTime()));
+            preparedStatement.setString(2, tugas.getIdtugas());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public void changeStatusView(Tugas tugas) {
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("update tugas set status=? where idtugas=?;");
+            // Parameters start with 1
+            preparedStatement.setString(1, tugas.getStatus());
+            preparedStatement.setString(2, tugas.getIdtugas());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
