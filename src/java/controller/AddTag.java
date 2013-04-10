@@ -21,11 +21,11 @@ import model.Tag;
  *
  * @author Kevin Alfianto
  */
-public class EditTag extends HttpServlet {
+public class AddTag extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private TagDb dboperation;
 
-    public EditTag() {
+    public AddTag() {
         super();
         dboperation = new TagDb();
     }
@@ -34,7 +34,7 @@ public class EditTag extends HttpServlet {
         Tag tag = new Tag();
         tag.setIdtugas(request.getParameter("idtugas"));
 		tag.setIsitag(request.getParameter("isitag"));
-        dboperation.editTag(tag);  
+        dboperation.addTag(tag);  
         RequestDispatcher view = request.getRequestDispatcher("/viewtask.jsp");
         view.forward(request, response);
     }

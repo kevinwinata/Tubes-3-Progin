@@ -58,8 +58,8 @@ public class AssigneeDb {
             PreparedStatement preparedStatement = connection
 					.prepareStatement("DELETE FROM assignee WHERE idtugas=? and username=?;");
             // Parameters start with 1
-            preparedStatement.setString(1, komentar.getIdtugas());
-            preparedStatement.setString(2, komentar.getUsername());
+            preparedStatement.setString(1, assignee.getIdtugas());
+            preparedStatement.setString(2, assignee.getUsername());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
