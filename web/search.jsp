@@ -3,7 +3,15 @@
     Created on : Apr 4, 2013, 8:21:12 PM
     Author     : kevin
 --%>
-
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="dboperation.TagDb"%>
+<%@page import="model.Tag"%>
+<%@page import="dboperation.TugasDb"%>
+<%@page import="model.Tugas"%>
+<%@page import="dboperation.UserDb"%>
+<%@page import="model.User"%>
+<%@page import="java.io.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -199,7 +207,15 @@
                 </div>
                 <div class = "menu" id = "search">
                     <form name="search" method="get" action="SearchPage">
-                        Search for: <input type="text" onkeyup= "searchWords();" name="find"/> in 
+                        Search for: <input type="text" onkeyup= "searchWords();" name="find" value="<%
+						String find = request.getParameter("find");
+			if(find != null){
+			   out.println(find);
+			}
+			else{
+			  out.println("");
+			}
+		%>"> in 
                         <Select NAME="field" onchange= "searchWords();">
                             <Option VALUE="semua">Semua</option>
                             <Option VALUE="username">Username</option>
