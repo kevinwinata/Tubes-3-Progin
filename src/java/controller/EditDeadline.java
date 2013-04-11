@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.io.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,10 +30,11 @@ public class EditDeadline extends HttpServlet {
         dboperation = new TugasDb();
     }
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    PrintWriter out = response.getWriter();
         Tugas tugas = new Tugas();
 		try {
-            String createdate = request.getParameter("bulan")+"/"+request.getParameter("tanggal")+"/"+request.getParameter("tahun");
+            String createdate = request.getParameter("bln")+"/"+request.getParameter("tgl")+"/"+request.getParameter("thn");
 			Date deadline = new SimpleDateFormat("MM/dd/yyyy").parse(createdate);
 			tugas.setIdtugas(request.getParameter("idtugas"));
 			tugas.setDeadline(deadline);
@@ -41,6 +42,7 @@ public class EditDeadline extends HttpServlet {
             e.printStackTrace();
         }
         dboperation.editDeadline(tugas);  
+		out.println(tugas.getDeadline().toString());
         RequestDispatcher view = request.getRequestDispatcher("/viewtask.jsp");
         view.forward(request, response);
     }

@@ -30,10 +30,10 @@ public class DeleteAssignee extends HttpServlet {
         dboperation = new AssigneeDb();
     }
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Assignee assignee = new Assignee();
-        assignee.setIdtugas(request.getParameter("idtugas"));
-		assignee.setUsername(request.getParameter("username"));
+        assignee.setIdtugas(request.getParameter("q"));
+		assignee.setUsername(request.getParameter("p"));
         dboperation.deleteAssignee(assignee);  
         RequestDispatcher view = request.getRequestDispatcher("/viewtask.jsp");
         view.forward(request, response);

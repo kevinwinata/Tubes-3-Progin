@@ -30,10 +30,10 @@ public class AddTag extends HttpServlet {
         dboperation = new TagDb();
     }
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Tag tag = new Tag();
-        tag.setIdtugas(request.getParameter("idtugas"));
-		tag.setIsitag(request.getParameter("isitag"));
+        tag.setIdtugas(request.getParameter("q"));
+		tag.setIsitag(request.getParameter("p"));
         dboperation.addTag(tag);  
         RequestDispatcher view = request.getRequestDispatcher("/viewtask.jsp");
         view.forward(request, response);

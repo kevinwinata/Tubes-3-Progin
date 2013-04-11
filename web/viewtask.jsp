@@ -22,7 +22,7 @@
             var bulan = "Januari";
             var tahun = 2013;
 			
-            function editTag(e,uidtugas){
+            function addTag(e,uidtugas){
                 var xmlhttp;
                 var value;
                 if (e && e.keyCode == 13) {
@@ -43,7 +43,33 @@
                             renameButton("tagbutton");
                         }
                     }
-                    xmlhttp.open("GET","edittag.php?q="+uidtugas+"&p="+value,true);
+                    xmlhttp.open("GET","AddTag?q="+uidtugas+"&p="+value,true);
+                    xmlhttp.send();
+                }
+            }
+			
+			function hapusTag(e,uidtugas){
+                var xmlhttp;
+                var value;
+                if (e && e.keyCode == 13) {
+                    value = document.getElementById("tag").value;
+                    if (window.XMLHttpRequest) {
+                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp=new XMLHttpRequest();
+                    }
+                    else {
+                        // code for IE6, IE5
+                        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange=function() {
+                        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                            document.getElementById("tagvalue").innerHTML = value;
+                            showHide("tag");
+                            showHide("tagvalue");
+                            renameButton("tagbutton");
+                        }
+                    }
+                    xmlhttp.open("GET","DeleteTag?q="+uidtugas+"&p="+value,true);
                     xmlhttp.send();
                 }
             }
@@ -66,7 +92,7 @@
                         document.getElementById("dlvalue").innerHTML = tgl.options[tgl.selectedIndex].text+"-"+bln.options[bln.selectedIndex].text+"-"+thn.options[thn.selectedIndex].text;
                     }
                 }
-                xmlhttp.open("GET","editdeadline.php?q="+uidtugas+"&tgl="+tgl.options[tgl.selectedIndex].text+"&bln="+bln.options[bln.selectedIndex].text+"&thn="+thn.options[thn.selectedIndex].text,true);
+                xmlhttp.open("GET","EditDeadline?q="+uidtugas+"&tgl="+tgl.options[tgl.selectedIndex].text+"&bln="+bln.options[bln.selectedIndex].text+"&thn="+thn.options[thn.selectedIndex].text,true);
                 xmlhttp.send();
             }
 			
@@ -87,7 +113,7 @@
                         document.getElementById("daftarassignee").innerHTML = "<option value=shit>Shit</option>";
                     }
                 }
-                xmlhttp.open("GET","addassignee.php?q="+uidtugas+"&p="+assignee,true);
+                xmlhttp.open("GET","AddAssignee?q="+uidtugas+"&p="+assignee,true);
                 xmlhttp.send();
             }
 			
@@ -107,7 +133,7 @@
                         document.getElementById("asvalue").innerHTML=xmlhttp.responseText;
                     }
                 }
-                xmlhttp.open("GET","hapusassignee.php?q="+uidtugas+"&p="+selection.options[selection.selectedIndex].text,true);
+                xmlhttp.open("GET","DeleteAssignee?q="+uidtugas+"&p="+selection.options[selection.selectedIndex].text,true);
                 xmlhttp.send();
             }
 			
