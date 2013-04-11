@@ -124,10 +124,6 @@ public class Search2 extends HttpServlet {
 			}	
 			out.println("<font color=\"red\">Total Pencarian : "+ totalCari +"</font>");
 		}
-			else
-			{
-				out.println("<font color=\"red\">Total Pencarian : "+ totalCari +"</font>");
-			}
 			out.close();
 		}
     }
