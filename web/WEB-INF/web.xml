@@ -78,6 +78,12 @@
     </servlet>
     <servlet>
         <description/>
+        <display-name>AddTask</display-name>
+        <servlet-name>AddTask</servlet-name>
+        <servlet-class>controller.AddTask</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
         <display-name>SearchPage</display-name>
         <servlet-name>SearchPage</servlet-name>
         <servlet-class>controller.SearchPage</servlet-class>
@@ -153,6 +159,10 @@
     <servlet-mapping>
         <servlet-name>ChangeStatus</servlet-name>
         <url-pattern>/ChangeStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddTask</servlet-name>
+        <url-pattern>/AddTask</url-pattern>
     </servlet-mapping>
 	<servlet-mapping>
         <servlet-name>SearchPage</servlet-name>

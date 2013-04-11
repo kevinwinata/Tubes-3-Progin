@@ -25,6 +25,19 @@ public class AttachmentDb {
         connection = DbUtil.getConnection();
     }
     
+    public void addAttachment(Attachment attachment) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into attachment(idtugas,isiattachment) values (?, ?)");
+            // Parameters start with 1
+            preparedStatement.setString(1, attachment.getIdtugas());
+            preparedStatement.setString(2, attachment.getIsiattachment());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void deleteByIdtugas(String idtugas) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM attachment WHERE idtugas = ?");

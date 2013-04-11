@@ -25,6 +25,23 @@ public class TugasDb {
         connection = DbUtil.getConnection();
     }
     
+    public void addTugas(Tugas tugas) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into tugas(idtugas,namatugas,deadline,idkategori,username,status) values (?, ?, ?, ?, ?, ? )");
+            // Parameters start with 1
+            preparedStatement.setString(1, tugas.getIdtugas());
+            preparedStatement.setString(2, tugas.getNamatugas());
+            preparedStatement.setDate(3, new java.sql.Date(tugas.getDeadline().getTime()));
+            preparedStatement.setString(4, tugas.getIdkategori());
+            preparedStatement.setString(5, tugas.getUsername());
+            preparedStatement.setString(6, tugas.getStatus());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public Tugas getTugasById(String idtugas) {
         Tugas tugas = new Tugas();
         try {
@@ -56,7 +73,6 @@ public class TugasDb {
                 Tugas tugas = new Tugas();
                 tugas.setIdtugas(rs.getString("idtugas"));
                 tugas.setNamatugas(rs.getString("namatugas"));
-                tugas.setAttachment(rs.getString("attachment"));
                 tugas.setDeadline(rs.getDate("deadline"));
                 tugas.setIdkategori(rs.getString("idkategori"));
                 tugas.setUsername(rs.getString("username"));
@@ -82,7 +98,6 @@ public class TugasDb {
                 Tugas tugas = new Tugas();
                 tugas.setIdtugas(rs.getString("idtugas"));
                 tugas.setNamatugas(rs.getString("namatugas"));
-                tugas.setAttachment(rs.getString("attachment"));
                 tugas.setDeadline(rs.getDate("deadline"));
                 tugas.setIdkategori(rs.getString("idkategori"));
                 tugas.setUsername(rs.getString("username"));
@@ -107,7 +122,6 @@ public class TugasDb {
                 tugas.setIdtugas(rs.getString("idtugas"));
                 tugas.setNamatugas(rs.getString("namatugas"));
                 tugas.setDeadline(rs.getDate("deadline"));
-				tugas.setAttachment(rs.getString("attachment"));
                 tugas.setIdkategori(rs.getString("idkategori"));
                 tugas.setUsername(rs.getString("username"));
                 tugas.setStatus(rs.getString("status"));
@@ -131,7 +145,6 @@ public class TugasDb {
                 tugas.setIdtugas(rs.getString("idtugas"));
                 tugas.setNamatugas(rs.getString("namatugas"));
                 tugas.setDeadline(rs.getDate("deadline"));
-				tugas.setAttachment(rs.getString("attachment"));
                 tugas.setIdkategori(rs.getString("idkategori"));
                 tugas.setUsername(rs.getString("username"));
                 tugas.setStatus(rs.getString("status"));
@@ -155,7 +168,6 @@ public class TugasDb {
                 tugas.setIdtugas(rs.getString("idtugas"));
                 tugas.setNamatugas(rs.getString("namatugas"));
                 tugas.setDeadline(rs.getDate("deadline"));
-				tugas.setAttachment(rs.getString("attachment"));
                 tugas.setIdkategori(rs.getString("idkategori"));
                 tugas.setUsername(rs.getString("username"));
                 tugas.setStatus(rs.getString("status"));
@@ -165,6 +177,19 @@ public class TugasDb {
             e.printStackTrace();
         }
         return listtugas;
+    }
+    
+    public boolean isIdExist(String idtugas) {
+        boolean ret = true;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tugas WHERE idtugas=?");
+            preparedStatement.setString(1, idtugas);
+            ResultSet rs = preparedStatement.executeQuery();
+            ret = rs.first();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 	
     public List<Tugas> searchTugas(String tugas1) {

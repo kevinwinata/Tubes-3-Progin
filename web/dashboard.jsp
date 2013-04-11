@@ -4,6 +4,8 @@
     Author     : Kevin Winata
 --%>
 
+<%@page import="model.User"%>
+<%@page import="dboperation.UserDb"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -67,7 +69,7 @@
 			document.getElementById("listtask").innerHTML=xmlhttp.responseText;
 			document.getElementById("listtaskdefault").style.display = 'none';
 			document.getElementById("listtask").style.display = 'block';
-			document.getElementById("tambahtaskblock").innerHTML="<div class=task_block id=tambah_task onclick=\"location.href='newtask.php?q="+uidkategori+"'\"><p>Tambah Task...</p></div>";
+			document.getElementById("tambahtaskblock").innerHTML="<div class=task_block id=tambah_task onclick=\"location.href='newtask.jsp?q="+uidkategori+"'\"><p>Tambah Task...</p></div>";
 			document.getElementById("deletecategory").innerHTML="<div class=hapus_category_block onclick=\"location.href='DeleteKategori?q="+uidkategori+"'\"><div class=category_name>Hapus Kategori...</div></div>";
 			document.getElementById("deletecategory").style.display = 'block';
 		  }
@@ -156,10 +158,7 @@ else {
 			<div class="menu" id="home">
 				<a href="dashboard.jsp">Home</a>
 			</div>
-			<div class="menu" id="profile">
-				<a href="profile.jsp">
-				Profile</a>
-			</div>
+                </div>
         </div>
 		
 		<div id="category">
