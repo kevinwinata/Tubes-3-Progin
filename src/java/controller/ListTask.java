@@ -37,6 +37,7 @@ public class ListTask extends HttpServlet {
     private TugasDb dbtugas;
     private TagDb dbtag;
     private AssigneeDb dbassignee;
+    public static String kategori;
     
     public ListTask() {
         super();
@@ -48,7 +49,7 @@ public class ListTask extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String username = session.getAttribute("id").toString();
-        String kategori = request.getParameter("q");
+        kategori = request.getParameter("q");
         PrintWriter out = response.getWriter();
         
         List<Tugas> tugaskategori = dbtugas.getTugasKategori(kategori);

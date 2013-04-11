@@ -25,6 +25,7 @@ import model.Tugas;
 import model.Tag;
 import model.Attachment;
 import model.Assignee;
+import controller.ListTask;
 
 /**
  *
@@ -36,7 +37,6 @@ public class AddTask extends HttpServlet {
     private TagDb dbtag;
     private TugasDb dbtugas;
     private AssigneeDb dbassignee;
-    private String idkategori;
     
     public AddTask() {
         super();
@@ -63,10 +63,6 @@ public class AddTask extends HttpServlet {
         }
         return null;
     }
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        idkategori = request.getParameter("q");
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -75,7 +71,7 @@ public class AddTask extends HttpServlet {
         
         DateFormat formatter;
         formatter = new SimpleDateFormat("dd-MMM-yy");
-        String date = request.getParameter("tahun")+"-"+request.getParameter("bulan")+"-"+request.getParameter("tanggal");
+        String date = request.getParameter("tanggal")+"-"+request.getParameter("bulan")+"-"+request.getParameter("tahun");
         Date deadline = null;
         try {
             deadline = (Date)formatter.parse(date);
@@ -117,7 +113,7 @@ public class AddTask extends HttpServlet {
         tugas.setIdtugas(idtugas);
         tugas.setNamatugas(namatugas);
         tugas.setDeadline(deadline);
-        tugas.setIdkategori(idkategori);
+        tugas.setIdkategori(ListTask.kategori);
         tugas.setUsername(username);
         tugas.setStatus("undone");
         dbtugas.addTugas(tugas);
@@ -137,8 +133,11 @@ public class AddTask extends HttpServlet {
         for (int j = 0; j < assignees.length; j++) {
             Assignee assignee = new Assignee();
             assignee.setIdtugas(idtugas);
-            assignee.setUsername(assignees[j]);
+            assignee.setUsername(assignees[j].trim());
             dbassignee.addAssignee(assignee);
         }
+        
+        RequestDispatcher view = request.getRequestDispatcher("/dashboard.jsp");
+        view.forward(request, response);
     }
 }

@@ -157,9 +157,7 @@
 
             </div>
             <div id="newtask">
-                <%
-                    out.print("<form name=newtask_form method=post action=AddTask?q="+request.getParameter("q")+" enctype=\"multipart/form-data\">");
-                %>
+                <form name=newtask_form method=post action="AddTask" enctype="multipart/form-data">
                             <div id="newtask_space">
                     </div>
                     <div id="formulir">

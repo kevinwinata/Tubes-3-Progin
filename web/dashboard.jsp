@@ -69,7 +69,7 @@
 			document.getElementById("listtask").innerHTML=xmlhttp.responseText;
 			document.getElementById("listtaskdefault").style.display = 'none';
 			document.getElementById("listtask").style.display = 'block';
-			document.getElementById("tambahtaskblock").innerHTML="<div class=task_block id=tambah_task onclick=\"location.href='newtask.jsp?q="+uidkategori+"'\"><p>Tambah Task...</p></div>";
+			document.getElementById("tambahtaskblock").innerHTML="<div class=task_block id=tambah_task onclick=\"location.href='newtask.jsp'\"><p>Tambah Task...</p></div>";
 			document.getElementById("deletecategory").innerHTML="<div class=hapus_category_block onclick=\"location.href='DeleteKategori?q="+uidkategori+"'\"><div class=category_name>Hapus Kategori...</div></div>";
 			document.getElementById("deletecategory").style.display = 'block';
 		  }
