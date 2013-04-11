@@ -98,6 +98,24 @@
 		xmlhttp.open("GET","ListTaskDefault?q=moonray",true);
 		xmlhttp.send();
 	}
+        function ChangeStatus(idtugas){
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+		  // code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		}
+		else {
+		  // code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function() {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			
+		  }
+		}
+		xmlhttp.open("GET","ChangeStatus?q="+idtugas,true);
+		xmlhttp.send();
+	}
 </script>
 		
 </head>

@@ -49,4 +49,16 @@ public class HakDb {
         }
         return rs;
     }
+    
+    public void deleteByIdkategori(String idkategori) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM hak WHERE idkategori = ?");
+            // Parameters start with 1
+            preparedStatement.setString(1, idkategori);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

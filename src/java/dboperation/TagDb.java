@@ -78,7 +78,7 @@ public class TagDb {
         return tags;
     }
 
-	public List<Tag> searchTagsLimit(String tag1, String max) {
+    public List<Tag> searchTagsLimit(String tag1, String max) {
         List<Tag> tags = new ArrayList<Tag>();
         try {
             Statement statement = connection.createStatement();
@@ -96,7 +96,7 @@ public class TagDb {
         return tags;
     }
 
-	public void deleteTag(Tag tag) {
+    public void deleteTag(Tag tag) {
         try {
             PreparedStatement preparedStatement = connection
                     .prepareStatement("delete from tag where idtugas=?;");
@@ -109,12 +109,24 @@ public class TagDb {
         }
     }
 	
-	public void addTag(Tag tag) {
+    public void addTag(Tag tag) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("insert into tag(idtugas,isitag) values (?, ?)");
             // Parameters start with 1
             preparedStatement.setString(1, tag.getIdtugas());
             preparedStatement.setString(2, tag.getIsitag());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void deleteByIdtugas(String idtugas) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM tag WHERE idtugas = ?");
+            // Parameters start with 1
+            preparedStatement.setString(1, idtugas);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

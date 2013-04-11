@@ -12,36 +12,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-import model.Komentar;
+import model.Attachment;
 import util.DbUtil;
 /**
  *
- * @author Kevin Alfianto
+ * @author Kevin
  */
-public class KomentarDb {
+public class AttachmentDb {
     private Connection connection;
     
-    public KomentarDb() {
+    public AttachmentDb() {
         connection = DbUtil.getConnection();
-    }
-	
-    public void deleteComment(Komentar komentar) {
-        try {
-            PreparedStatement preparedStatement = connection
-					.prepareStatement("DELETE FROM komentar WHERE waktu=? and idtugas=?;");
-            // Parameters start with 1
-            preparedStatement.setDate(1, new java.sql.Date(komentar.getWaktu().getTime()));
-            preparedStatement.setString(2, komentar.getIdtugas());
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
     
     public void deleteByIdtugas(String idtugas) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM komentar WHERE idtugas = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM attachment WHERE idtugas = ?");
             // Parameters start with 1
             preparedStatement.setString(1, idtugas);
             preparedStatement.executeUpdate();

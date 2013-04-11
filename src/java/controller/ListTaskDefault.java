@@ -65,7 +65,7 @@ public class ListTaskDefault extends HttpServlet {
             String status = "";
             if (temp.getStatus().equals("done"))
                 status += "checked";
-            out.println("<div>Status : <input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"location.href='changestatus.php?q="+temp.getIdtugas()+"'\"></div>");
+            out.println("<div id=\"status"+temp.getIdtugas()+"\" name=\"statustugas\">Status : <input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"ChangeStatus("+temp.getIdtugas()+")\"></div>");
             out.println("</div><button onclick=\"location.href='DeleteTugas?q="+temp.getIdtugas()+"'\">Hapus Task...</button></div>");
         }
         
@@ -85,7 +85,7 @@ public class ListTaskDefault extends HttpServlet {
             String status = "";
             if (temp.getStatus().equals("done"))
                 status += "checked";
-            out.println("<div>Status : <input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"location.href='changestatus.php?q="+temp.getIdtugas()+"'\"></div>");
+            out.println("<div id=\"status"+temp.getIdtugas()+"\" name=\"statustugas\">Status : <input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"ChangeStatus("+temp.getIdtugas()+")\"></div>");
             out.println("</div><button onclick=\"location.href='DeleteTugas?q="+temp.getIdtugas()+"'\">Hapus Task...</button></div>");
         }
         out.close();

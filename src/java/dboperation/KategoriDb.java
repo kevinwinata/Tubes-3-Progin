@@ -85,7 +85,7 @@ public class KategoriDb {
         return kategoris;
     }
 	
-	public List<Kategori> searchKategorisLimit(String kategori1, String max) {
+    public List<Kategori> searchKategorisLimit(String kategori1, String max) {
         List<Kategori> kategoris = new ArrayList<Kategori>();
         try {
             Statement statement = connection.createStatement();
@@ -101,5 +101,17 @@ public class KategoriDb {
         }
 
         return kategoris;
+    }
+    
+    public void deleteByIdkategori(String idkategori) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM kategori WHERE idkategori = ?");
+            // Parameters start with 1
+            preparedStatement.setString(1, idkategori);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

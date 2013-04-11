@@ -72,6 +72,12 @@
     </servlet>
     <servlet>
         <description/>
+        <display-name>ChangeStatus</display-name>
+        <servlet-name>ChangeStatus</servlet-name>
+        <servlet-class>controller.ChangeStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <description/>
         <display-name>SearchPage</display-name>
         <servlet-name>SearchPage</servlet-name>
         <servlet-class>controller.SearchPage</servlet-class>
@@ -143,6 +149,10 @@
     <servlet-mapping>
         <servlet-name>DeleteTugas</servlet-name>
         <url-pattern>/DeleteTugas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatus</servlet-name>
+        <url-pattern>/ChangeStatus</url-pattern>
     </servlet-mapping>
 	<servlet-mapping>
         <servlet-name>SearchPage</servlet-name>

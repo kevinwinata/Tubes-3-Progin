@@ -66,8 +66,8 @@ public class ListTask extends HttpServlet {
             String status = "";
             if (temp.getStatus().equals("done"))
                 status += "checked";
-            out.println("<div>Status : <input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"location.href='changestatus.php?q="+temp.getIdtugas()+"'\"></div>");
-            if (username.equals("moonray"))
+            out.println("<div id=\"status"+temp.getIdtugas()+"\" name=\"statustugas\">Status : <input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"ChangeStatus("+temp.getIdtugas()+")\"></div>");
+            if (username.equals(username))
                 out.println("</div><button onclick=\"location.href='DeleteTugas?q="+temp.getIdtugas()+"'\">Hapus Task...</button></div>");
             else
                 out.println("</div></div>");

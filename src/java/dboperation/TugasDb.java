@@ -25,7 +25,26 @@ public class TugasDb {
         connection = DbUtil.getConnection();
     }
     
-	public List<Tugas> getTugas(String username, String status) {
+    public Tugas getTugasById(String idtugas) {
+        Tugas tugas = new Tugas();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tugas WHERE idtugas =?");
+            preparedStatement.setString(1, idtugas);
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            tugas.setIdtugas(rs.getString("idtugas"));
+            tugas.setNamatugas(rs.getString("namatugas"));
+            tugas.setDeadline(rs.getDate("deadline"));
+            tugas.setIdkategori(rs.getString("idkategori"));
+            tugas.setUsername(rs.getString("username"));
+            tugas.setStatus(rs.getString("status"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tugas;
+    }
+    
+    public List<Tugas> getTugas(String username, String status) {
         List<Tugas> listtugas = new ArrayList<Tugas>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tugas WHERE username=? AND status=?");
@@ -148,7 +167,7 @@ public class TugasDb {
         return listtugas;
     }
 	
-	public List<Tugas> searchTugas(String tugas1) {
+    public List<Tugas> searchTugas(String tugas1) {
         List<Tugas> tugass = new ArrayList<Tugas>();
         try {
             Statement statement = connection.createStatement();
@@ -168,7 +187,7 @@ public class TugasDb {
         return tugass;
     }
 	
-	public List<Tugas> searchTugasLimit(String tugas1, String max) {
+    public List<Tugas> searchTugasLimit(String tugas1, String max) {
         List<Tugas> tugass = new ArrayList<Tugas>();
         try {
             Statement statement = connection.createStatement();
@@ -188,7 +207,7 @@ public class TugasDb {
         return tugass;
     }
 	
-	public void editDeadline(Tugas tugas) {
+    public void editDeadline(Tugas tugas) {
         try {
             PreparedStatement preparedStatement = connection
                     .prepareStatement("update tugas set deadline=? where idtugas=?;");
@@ -202,7 +221,7 @@ public class TugasDb {
         }
     }
 	
-	public void changeStatusView(Tugas tugas) {
+    public void changeStatusView(Tugas tugas) {
         try {
             PreparedStatement preparedStatement = connection
                     .prepareStatement("update tugas set status=? where idtugas=?;");
@@ -211,6 +230,42 @@ public class TugasDb {
             preparedStatement.setString(2, tugas.getIdtugas());
             preparedStatement.executeUpdate();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+        
+    public void deleteByIdkategori(String idkategori) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM tugas WHERE idkategori = ?");
+            // Parameters start with 1
+            preparedStatement.setString(1, idkategori);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void deleteTugas(String idtugas) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM tugas WHERE idtugas = ?");
+            // Parameters start with 1
+            preparedStatement.setString(1, idtugas);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    } 
+    
+    public void updateStatus(String idtugas, String status) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tugas SET status=? WHERE idtugas = ?");
+            // Parameters start with 1
+            preparedStatement.setString(1, status);
+            preparedStatement.setString(2, idtugas);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

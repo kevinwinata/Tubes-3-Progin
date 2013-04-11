@@ -42,7 +42,7 @@ public class DeleteTugas  extends HttpServlet {
         dbattachment.deleteByIdtugas(idtugas);
         dbkomentar.deleteByIdtugas(idtugas);
 
-        dbtugas.deleteByIdkategori(idtugas);
+        dbtugas.deleteTugas(idtugas);
         
         
         RequestDispatcher view = request.getRequestDispatcher("/dashboard.jsp");

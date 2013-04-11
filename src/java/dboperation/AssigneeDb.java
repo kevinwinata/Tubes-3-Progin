@@ -40,7 +40,7 @@ public class AssigneeDb {
         return idtugas;
     }
 	
-	 public void addAssignee(Assignee assignee) {
+    public void addAssignee(Assignee assignee) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("insert into assignee(username,idtugas) values (?, ?)");
             // Parameters start with 1
@@ -53,13 +53,25 @@ public class AssigneeDb {
         }
     }
 	
-	public void deleteAssignee(Assignee assignee) {
+    public void deleteAssignee(Assignee assignee) {
         try {
             PreparedStatement preparedStatement = connection
 					.prepareStatement("DELETE FROM assignee WHERE idtugas=? and username=?;");
             // Parameters start with 1
             preparedStatement.setString(1, assignee.getIdtugas());
             preparedStatement.setString(2, assignee.getUsername());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void deleteByIdtugas(String idtugas) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM assignee WHERE idtugas = ?");
+            // Parameters start with 1
+            preparedStatement.setString(1, idtugas);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
