@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import dboperation.TugasDb;
 import dboperation.TagDb;
+import dboperation.AssigneeDb;
+import javax.servlet.http.HttpSession;
 import model.Tugas;
 import model.Tag;
 /**
@@ -30,17 +32,21 @@ import model.Tag;
 public class Search3 extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private TugasDb dbtugas;
-	private TagDb dbtag;
+    private TagDb dbtag;
+    private AssigneeDb dbassignee;
 
     public Search3() {
         super();
         dbtugas = new TugasDb();
-		dbtag = new TagDb();
+	dbtag = new TagDb();
+        dbassignee = new AssigneeDb();
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String find = request.getParameter("find");
 		String field = request.getParameter("field");
+                HttpSession session = request.getSession();
+                String username = session.getAttribute("id").toString();
 		int totalCari = 0;
 		PrintWriter out = response.getWriter();
 		if ((field.equals("semua")) || (field.equals("tasktag")))
@@ -93,10 +99,17 @@ public class Search3 extends HttpServlet {
 						result1 = tugass.remove(0);
 						result2 = tags.remove(0);
 						out.println("<div id=\"isi1\">");
-						out.println("<p style='margin-left: 1em;'>Nama Task : "+ result1.getNamatugas() +"</p>");
+						out.println("<p style='margin-left: 1em;'>Nama Task : <a href=\"viewtask.jsp?q="+result1.getIdtugas()+"\">"+ result1.getNamatugas() +"</a></p>");
 						out.println("<p style='margin-left: 1em;'>Tanggal Deadline : "+ result1.getDeadline() +"</p>");
 						out.println("<p style='margin-left: 1em;'>Tag : "+ result2.getIsitag() +"</p>");
-						out.println("<p style='margin-left: 1em;'>Status : "+ result1.getStatus() +"</p>");
+                                                out.println("<p style='margin-left: 1em;'>Status : "+ result1.getStatus() +"</p>");
+                                                String assigned = dbassignee.getUser(result1.getIdtugas(), username);
+                                                if (username.equals(result1.getUsername()) || username.equals(assigned)) {
+                                                    String status = "";
+                                                    if (result1.getStatus().equalsIgnoreCase("done"))
+                                                        status += "checked";
+                                                    out.println("<div id=\"status\" name=\"statustugas\"><input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"ChangeStatus("+result1.getIdtugas()+")\"></div>");
+                                                }
 						out.println("</div>");
 					}
 				}

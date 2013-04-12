@@ -54,7 +54,23 @@ public class AssigneeDb {
         }
         return idtugas;
     }
-	
+    
+    public String getUser(String idtugas, String username) {
+        String user = "";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT username FROM assignee WHERE idtugas =? AND username =?");
+            preparedStatement.setString(1, idtugas);
+            preparedStatement.setString(2, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                user += rs.getString("username");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
     public void addAssignee(Assignee assignee) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("insert into assignee(username,idtugas) values (?, ?)");

@@ -65,7 +65,7 @@ public class ListTask extends HttpServlet {
                     out.println(", ");
             }
             String status = "";
-            if (temp.getStatus().equals("done"))
+            if (temp.getStatus().equalsIgnoreCase("done"))
                 status += "checked";
             out.println("<div id=\"status"+temp.getIdtugas()+"\" name=\"statustugas\">Status : <input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"ChangeStatus("+temp.getIdtugas()+")\"></div>");
             if (username.equals(temp.getUsername()))

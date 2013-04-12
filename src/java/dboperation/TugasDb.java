@@ -14,17 +14,19 @@ import java.util.List;
 import java.util.Date;
 import model.Tugas;
 import util.DbUtil;
+
 /**
  *
  * @author Kevin
  */
 public class TugasDb {
+
     private Connection connection;
-    
+
     public TugasDb() {
         connection = DbUtil.getConnection();
     }
-    
+
     public void addTugas(Tugas tugas) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("insert into tugas(idtugas,namatugas,deadline,idkategori,username,status) values (?, ?, ?, ?, ?, ? )");
@@ -41,7 +43,7 @@ public class TugasDb {
             e.printStackTrace();
         }
     }
-    
+
     public Tugas getTugasById(String idtugas) {
         Tugas tugas = new Tugas();
         try {
@@ -60,7 +62,7 @@ public class TugasDb {
         }
         return tugas;
     }
-    
+
     public List<Tugas> getTugas(String username, String status) {
         List<Tugas> listtugas = new ArrayList<Tugas>();
         try {
@@ -68,7 +70,7 @@ public class TugasDb {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, status);
             ResultSet rs = preparedStatement.executeQuery();
-            
+
             while (rs.next()) {
                 Tugas tugas = new Tugas();
                 tugas.setIdtugas(rs.getString("idtugas"));
@@ -85,7 +87,7 @@ public class TugasDb {
 
         return listtugas;
     }
-    
+
     public List<Tugas> getTugasByAssignee(String username, String status) {
         List<Tugas> listtugas = new ArrayList<Tugas>();
         try {
@@ -93,7 +95,7 @@ public class TugasDb {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, status);
             ResultSet rs = preparedStatement.executeQuery();
-            
+
             while (rs.next()) {
                 Tugas tugas = new Tugas();
                 tugas.setIdtugas(rs.getString("idtugas"));
@@ -110,7 +112,7 @@ public class TugasDb {
 
         return listtugas;
     }
-	
+
     public List<Tugas> getTugasUsername(String username) {
         List<Tugas> listtugas = new ArrayList<Tugas>();
         try {
@@ -132,12 +134,12 @@ public class TugasDb {
         }
         return listtugas;
     }
-    
+
     public List<Tugas> getTugasKategori(String idkategori) {
         List<Tugas> listtugas = new ArrayList<Tugas>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tugas WHERE idkategori =?");
-			
+
             preparedStatement.setString(1, idkategori);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -155,7 +157,7 @@ public class TugasDb {
         }
         return listtugas;
     }
-    
+
     public List<Tugas> getTugasIdtugas(List<String> idtugas) {
         List<Tugas> listtugas = new ArrayList<Tugas>();
         try {
@@ -178,7 +180,7 @@ public class TugasDb {
         }
         return listtugas;
     }
-    
+
     public boolean isIdExist(String idtugas) {
         boolean ret = true;
         try {
@@ -191,18 +193,21 @@ public class TugasDb {
         }
         return ret;
     }
-	
+
     public List<Tugas> searchTugas(String tugas1) {
         List<Tugas> tugass = new ArrayList<Tugas>();
         try {
             Statement statement = connection.createStatement();
-			String query = "SELECT * FROM tag,tugas WHERE ((upper(isitag) LIKE'%" + tugas1 +"%') OR (upper(namatugas) LIKE'%" + tugas1 +"%')) AND tag.idtugas = tugas.idtugas";
+            String query = "SELECT * FROM tag,tugas WHERE ((upper(isitag) LIKE'%" + tugas1 + "%') OR (upper(namatugas) LIKE'%" + tugas1 + "%')) AND tag.idtugas = tugas.idtugas";
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 Tugas tugas = new Tugas();
+                tugas.setIdtugas(rs.getString("idtugas"));
+                tugas.setNamatugas(rs.getString("namatugas"));
                 tugas.setDeadline(rs.getDate("deadline"));
-				tugas.setNamatugas(rs.getString("namatugas"));
-				tugas.setStatus(rs.getString("status"));
+                tugas.setIdkategori(rs.getString("idkategori"));
+                tugas.setUsername(rs.getString("username"));
+                tugas.setStatus(rs.getString("status"));
                 tugass.add(tugas);
             }
         } catch (SQLException e) {
@@ -211,18 +216,21 @@ public class TugasDb {
 
         return tugass;
     }
-	
+
     public List<Tugas> searchTugasLimit(String tugas1, String max) {
         List<Tugas> tugass = new ArrayList<Tugas>();
         try {
             Statement statement = connection.createStatement();
-			String query = "SELECT * FROM tag,tugas WHERE ((upper(isitag) LIKE'%" + tugas1 +"%') OR (upper(namatugas) LIKE'%" + tugas1 +"%')) AND tag.idtugas = tugas.idtugas "+ max;	
+            String query = "SELECT * FROM tag,tugas WHERE ((upper(isitag) LIKE'%" + tugas1 + "%') OR (upper(namatugas) LIKE'%" + tugas1 + "%')) AND tag.idtugas = tugas.idtugas " + max;
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 Tugas tugas = new Tugas();
+                tugas.setIdtugas(rs.getString("idtugas"));
+                tugas.setNamatugas(rs.getString("namatugas"));
                 tugas.setDeadline(rs.getDate("deadline"));
-				tugas.setNamatugas(rs.getString("namatugas"));
-				tugas.setStatus(rs.getString("status"));
+                tugas.setIdkategori(rs.getString("idkategori"));
+                tugas.setUsername(rs.getString("username"));
+                tugas.setStatus(rs.getString("status"));
                 tugass.add(tugas);
             }
         } catch (SQLException e) {
@@ -231,11 +239,10 @@ public class TugasDb {
 
         return tugass;
     }
-	
+
     public void editDeadline(Tugas tugas) {
         try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("update tugas set deadline=? where idtugas=?;");
+            PreparedStatement preparedStatement = connection.prepareStatement("update tugas set deadline=? where idtugas=?;");
             // Parameters start with 1
             preparedStatement.setDate(1, new java.sql.Date(tugas.getDeadline().getTime()));
             preparedStatement.setString(2, tugas.getIdtugas());
@@ -245,11 +252,10 @@ public class TugasDb {
             e.printStackTrace();
         }
     }
-	
+
     public void changeStatusView(Tugas tugas) {
         try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("update tugas set status=? where idtugas=?;");
+            PreparedStatement preparedStatement = connection.prepareStatement("update tugas set status=? where idtugas=?;");
             // Parameters start with 1
             preparedStatement.setString(1, tugas.getStatus());
             preparedStatement.setString(2, tugas.getIdtugas());
@@ -259,7 +265,7 @@ public class TugasDb {
             e.printStackTrace();
         }
     }
-        
+
     public void deleteByIdkategori(String idkategori) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM tugas WHERE idkategori = ?");
@@ -271,7 +277,7 @@ public class TugasDb {
             e.printStackTrace();
         }
     }
-    
+
     public void deleteTugas(String idtugas) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM tugas WHERE idtugas = ?");
@@ -282,8 +288,8 @@ public class TugasDb {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    } 
-    
+    }
+
     public void updateStatus(String idtugas, String status) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tugas SET status=? WHERE idtugas = ?");

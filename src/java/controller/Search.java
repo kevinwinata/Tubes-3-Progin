@@ -84,7 +84,7 @@ public class Search extends HttpServlet {
 					{	
 						result = users.remove(0);
 						out.println("<div id=\"isi1\">");
-						out.println("<p style='margin-left: 1em;'>Username : "+ result.getUsername() +"</p>");
+						out.println("<p style='margin-left: 1em;'>Username : <a href=\"profilesearch.jsp?idsearch="+result.getUsername()+"\">"+ result.getUsername() +"</a></p>");
 						out.println("<p style='margin-left: 3em;'>Fullname : "+ result.getFullname() +"</p>");
 						out.println("<p style='margin-left: 3em;'><img src=\""+ result.getAvatar() + "\" alt=\"\" / height=\"100\" width=\"100\"></p>");
 						out.println("</div>");
