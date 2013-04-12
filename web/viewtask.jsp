@@ -475,9 +475,10 @@
                         TagDb dbtag = new TagDb();
                             List<String> tags = dbtag.getTagString(idtugas);
                             for (int j = 0; j < tags.size(); j++) {
-                                out.print(tags.get(j));
-                                if (j < (tags.size() - 1)) 
-                                    out.println(", ");
+                                if (j < (tags.size() - 1))
+                                    out.println(tags.get(j)+", ");
+                                else
+                                    out.print(tags.get(j));
                             }
                         %>
                     </div>
@@ -514,7 +515,7 @@
                             out.println("<div id=\"status"+idtugas+"\" name=\"statustugas\">Status : <input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"ChangeStatus("+idtugas+")\"></div>");
                         %>
 						<%
-						out.println("<button onclick=\"location.href='deletetask.php?q="+idtugas+"'\">Hapus Task...</button>");
+						out.println("<button onclick=\"location.href='DeleteTugas?q="+idtugas+"'\">Hapus Task...</button>");
 						%>
                     </div>
                 </div>
