@@ -58,7 +58,7 @@ public class ListComment extends HttpServlet {
             pagenum = Integer.parseInt(request.getParameter("pagenum"));
         }
         
-        int page_rows = 3;
+        int page_rows = 10;
         String max = "LIMIT " + (pagenum-1)*page_rows +","+page_rows;
         
         List<Komentar> komentars = new ArrayList<Komentar>();
