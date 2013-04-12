@@ -55,7 +55,7 @@ public class ListTask extends HttpServlet {
         List<Tugas> tugaskategori = dbtugas.getTugasKategori(kategori);
         for (int i = 0; i < tugaskategori.size(); i++) {
             Tugas temp = tugaskategori.get(i);
-            out.println("<div class=task_block><div class=task_judul><a href=\"viewtask.php?q="+temp.getIdtugas()+"\">"
+            out.println("<div class=task_block><div class=task_judul><a href=\"viewtask.jsp?q="+temp.getIdtugas()+"\">"
                     +temp.getNamatugas()+"</a></div><div class=task_deadline> Deadline : "
                     +temp.getDeadline().toString()+"</div><div class=task_tag>Tags: ");
             List<String> tagpribadi = dbtag.getTagString(temp.getIdtugas());

@@ -25,6 +25,21 @@ public class AssigneeDb {
         connection = DbUtil.getConnection();
     }
     
+    public List<String> getUsername(String idtugas) {
+        List<String> username = new ArrayList<String>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT username FROM assignee WHERE idtugas =?");
+            preparedStatement.setString(1, idtugas);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                username.add(rs.getString("username"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return username;
+    }
+    
     public List<String> getIdTugas(String username) {
         List<String> idtugas = new ArrayList<String>();
         try {

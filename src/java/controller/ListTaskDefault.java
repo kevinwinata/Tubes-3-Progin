@@ -53,7 +53,7 @@ public class ListTaskDefault extends HttpServlet {
         List<Tugas> tugaspribadi = dbtugas.getTugasUsername(username);
         for (int i = 0; i < tugaspribadi.size(); i++) {
             Tugas temp = tugaspribadi.get(i);
-            out.println("<div class=task_block><div class=task_judul><a href=\"viewtask.php?q="+temp.getIdtugas()+"\">"
+            out.println("<div class=task_block><div class=task_judul><a href=\"viewtask.jsp?q="+temp.getIdtugas()+"\">"
                     +temp.getNamatugas()+"</a></div><div class=task_deadline> Deadline : "
                     +temp.getDeadline().toString()+"</div><div class=task_tag>Tags: ");
             List<String> tagpribadi = dbtag.getTagString(temp.getIdtugas());
@@ -73,7 +73,7 @@ public class ListTaskDefault extends HttpServlet {
         List<Tugas> tugasassign = dbtugas.getTugasIdtugas(idtugasassign);
         for (int i = 0; i < tugasassign.size(); i++) {
             Tugas temp = tugasassign.get(i);
-            out.println("<div class=task_block><div class=task_judul><a href=\"viewtask.php?q="+temp.getIdtugas()+"\">"
+            out.println("<div class=task_block><div class=task_judul><a href=\"viewtask.jsp?q="+temp.getIdtugas()+"\">"
                     +temp.getNamatugas()+"</a></div><div class=task_deadline> Deadline : "
                     +temp.getDeadline().toString()+"</div><div class=task_tag>Tags: ");
             List<String> tagassign = dbtag.getTagString(temp.getIdtugas());
