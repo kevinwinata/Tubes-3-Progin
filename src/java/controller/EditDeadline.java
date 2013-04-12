@@ -14,6 +14,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import dboperation.TugasDb;
 import model.Tugas;
@@ -33,17 +38,20 @@ public class EditDeadline extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    PrintWriter out = response.getWriter();
         Tugas tugas = new Tugas();
-		try {
-            String createdate = request.getParameter("bln")+"/"+request.getParameter("tgl")+"/"+request.getParameter("thn");
-			Date deadline = new SimpleDateFormat("MM/dd/yyyy").parse(createdate);
-			tugas.setIdtugas(request.getParameter("idtugas"));
+		
+		DateFormat formatter;
+        formatter = new SimpleDateFormat("dd-MMM-yy");
+        String date = request.getParameter("tgl")+"-"+request.getParameter("bln")+"-"+request.getParameter("thn");
+        Date deadline = null;
+        try {
+            deadline = (Date)formatter.parse(date);
 			tugas.setDeadline(deadline);
-        } catch (ParseException e) {
-            e.printStackTrace();
+			tugas.setIdtugas(request.getParameter("q"));
+        } catch (ParseException ex) {
+            Logger.getLogger(AddTask.class.getName()).log(Level.SEVERE, null, ex);
         }
+		
         dboperation.editDeadline(tugas);  
 		out.println(tugas.getDeadline().toString());
-        RequestDispatcher view = request.getRequestDispatcher("/viewtask.jsp");
-        view.forward(request, response);
     }
 }
