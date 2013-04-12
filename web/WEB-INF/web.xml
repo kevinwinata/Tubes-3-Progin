@@ -166,6 +166,12 @@
         <servlet-name>AddAssignee</servlet-name>
         <servlet-class>controller.AddAssignee</servlet-class>
     </servlet>
+	<servlet>
+        <description/>
+        <display-name>Suggestion</display-name>
+        <servlet-name>Suggestion</servlet-name>
+        <servlet-class>controller.Suggestion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -273,5 +279,9 @@
 	<servlet-mapping>
         <servlet-name>AddAssignee</servlet-name>
         <url-pattern>/AddAssignee</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>Suggestion</servlet-name>
+        <url-pattern>/Suggestion</url-pattern>
     </servlet-mapping>
 </web-app>

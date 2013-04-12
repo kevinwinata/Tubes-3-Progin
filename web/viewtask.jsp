@@ -281,9 +281,9 @@
 				
                 var suggest = document.getElementById("as").value;
                 var xmlhttp;
-                document.getElementById("opsi").innerHTML="";
+                document.getElementById("opsis").innerHTML="";
                 if (suggest.length==0) { 
-                    document.getElementById("opsi").innerHTML="";
+                    document.getElementById("opsis").innerHTML="";
                     return;
                 }
                 if (window.XMLHttpRequest) {
@@ -296,12 +296,12 @@
                 }
                 xmlhttp.onreadystatechange=function() {
                     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-                        document.getElementById("opsi").innerHTML=xmlhttp.responseText;
+                        document.getElementById("opsis").innerHTML=xmlhttp.responseText;
                     }
 				  
                 }
 				
-                xmlhttp.open("GET","functionsuggest.php?suggest="+suggest,true);
+                xmlhttp.open("GET","Suggestion?suggest="+suggest,true);
                 xmlhttp.send();
             }
         </script>
@@ -467,7 +467,7 @@
                     </div>
                     <div class="viewtask_edit">
                         <input type=text name=as id="as" type="text" tabindex="4" list="user" onKeyUp="suggestion()" onKeyPress="checkEdit(event,'as','asvalue','asbutton')" list="suggest"/>
-                        <label id="opsi"></label>
+                        <label id="opsis"></label>
                         <%
                         out.println("<input type=button value=\"Add\" id=\"asbutton\" onclick=\"addAssignee("+idtugas+")\">");
                         %>

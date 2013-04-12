@@ -88,9 +88,9 @@
 				
                 var suggest = document.getElementById("assignee").value;
                 var xmlhttp;
-                document.getElementById("opsi").innerHTML="";
+                document.getElementById("opsis").innerHTML="";
                 if (suggest.length==0) { 
-                    document.getElementById("opsi").innerHTML="";
+                    document.getElementById("opsis").innerHTML="";
                     return;
                 }
                 if (window.XMLHttpRequest) {
@@ -103,12 +103,12 @@
                 }
                 xmlhttp.onreadystatechange=function() {
                     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-                        document.getElementById("opsi").innerHTML=xmlhttp.responseText;
+                        document.getElementById("opsis").innerHTML=xmlhttp.responseText;
                     }
 				  
                 }
 				
-                xmlhttp.open("GET","functionsuggest.php?suggest="+suggest,true);
+                xmlhttp.open("GET","Suggestion?suggest="+suggest,true);
                 xmlhttp.send();
             }
         </script>
@@ -220,7 +220,7 @@
                             </div>
                             <div class="newtask_field">
                                 <input id="assignee" type="text" name="assignee" tabindex="4" size="35" maxlength="256" list="user" onkeyup="checkAssignee(document.newtask_form.assignee.value);suggestion()">
-                                <label id="opsi"></label>
+                                <label id="opsis"></label>
                             </div>
                             <div class="newtask_warning" id="v_assignee">
                             </div>

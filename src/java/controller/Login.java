@@ -40,9 +40,10 @@ public class Login extends HttpServlet {
         RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
         RequestDispatcher view2 = request.getRequestDispatcher("/dashboard.jsp");
         if (dboperation.checkLogin(user)) {
-            view2.forward(request, response);
             session.setAttribute("id", request.getParameter("username"));
-			session.setAttribute("pagenum", 1);
+            session.setAttribute("pagenum", 1);
+            view2.forward(request, response);
+            
         }
         else {
             request.setAttribute("q", "0");
