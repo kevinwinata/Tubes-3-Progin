@@ -112,6 +112,36 @@
         <servlet-name>EditProfile</servlet-name>
         <servlet-class>controller.EditProfile</servlet-class>
     </servlet>
+	<servlet>
+        <description/>
+        <display-name>EditDeadline</display-name>
+        <servlet-name>EditDeadline</servlet-name>
+        <servlet-class>controller.EditDeadline</servlet-class>
+    </servlet>
+	<servlet>
+        <description/>
+        <display-name>DeleteTag</display-name>
+        <servlet-name>DeleteTag</servlet-name>
+        <servlet-class>controller.DeleteTag</servlet-class>
+    </servlet>
+	<servlet>
+        <description/>
+        <display-name>AddTag</display-name>
+        <servlet-name>AddTag</servlet-name>
+        <servlet-class>controller.AddTag</servlet-class>
+    </servlet>
+	<servlet>
+        <description/>
+        <display-name>DeleteAssignee</display-name>
+        <servlet-name>DeleteAssignee</servlet-name>
+        <servlet-class>controller.DeleteAssignee</servlet-class>
+    </servlet>
+	<servlet>
+        <description/>
+        <display-name>AddAssignee</display-name>
+        <servlet-name>AddAssignee</servlet-name>
+        <servlet-class>controller.AddAssignee</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -183,5 +213,25 @@
 	<servlet-mapping>
         <servlet-name>EditProfile</servlet-name>
         <url-pattern>/EditProfile</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>EditDeadline</servlet-name>
+        <url-pattern>/EditDeadline</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>DeleteTag</servlet-name>
+        <url-pattern>/DeleteTag</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>AddTag</servlet-name>
+        <url-pattern>/AddTag</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>DeleteAssignee</servlet-name>
+        <url-pattern>/DeleteAssignee</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>AddAssignee</servlet-name>
+        <url-pattern>/AddAssignee</url-pattern>
     </servlet-mapping>
 </web-app>
