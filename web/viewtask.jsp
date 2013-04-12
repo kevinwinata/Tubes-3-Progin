@@ -137,6 +137,26 @@
                 xmlhttp.send();
             }
 			
+			function ChangeStatus(uidtugas) {
+                var xmlhttp;
+                var selection = document.getElementById("status");
+                if (window.XMLHttpRequest) {
+                    // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
+                }
+                else {
+                    // code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange=function() {
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                        
+                    }
+                }
+                xmlhttp.open("GET","ChangeStatus?q="+uidtugas,true);
+                xmlhttp.send();
+            }
+			
             function makeTgl(){
                 for(var i=1; i<=31; i++){
                     var isi=document.createTextNode(i);
@@ -301,7 +321,7 @@
                 <div id="space">
                 </div>
                 <div class = "menu" id = "search">
-                    <form name="search" method="post" action="search.php">
+                    <form name="search" method="get" action="SearchPage">
                         Search for: <input type="text" name="find" /> in 
                         <Select NAME="field">
                             <Option VALUE="semua">Semua</option>
@@ -357,7 +377,9 @@
                                 }
                             }
                         %>
+                        </video>
                 </div>
+                
                 <div class="form_field">
                     <div class="viewtask_label">
                         Attachment
@@ -404,14 +426,17 @@
                             <select name="thn" id="thn">
                             </select>
                         </div>
-                    </div>
-                    <div class="viewtask_edit">
-                        <input type=button value="Edit" id="dlbutton" onClick="showHide('dl');showHide('dlvalue');showHide('dlbutton');showHide('savebutton')">
-                        <%
-                            out.println("<input type=button value=\"Save\" id=\"savebutton\" onClick=\"editDeadline('"+idtugas+"');showHide('dl');showHide('dlvalue');showHide('dlbutton');showHide('savebutton');getDateValue();setDateValue()\">");
-                        %>
-                    </div>
+					</div>
+					
                 </div>
+				<div class="form_field">
+					<div class="viewtask_edit">
+							<input type=button value="Edit" id="dlbutton" onClick="showHide('dl');showHide('dlvalue');showHide('dlbutton');showHide('savebutton')">
+							<%
+								out.println("<input type=button value=\"Save\" id=\"savebutton\" onClick=\"editDeadline('"+idtugas+"');showHide('dl');showHide('dlvalue');showHide('dlbutton');showHide('savebutton');getDateValue();setDateValue()\">");
+							%>
+					</div>
+				</div>
                 <div class="form_field">
                     <div class="viewtask_label">
                         Assignee
@@ -498,12 +523,13 @@
                                 status += "checked";
                             out.println("<div id=\"status"+idtugas+"\" name=\"statustugas\">Status : <input type=checkbox name=\"status\" value=\"done\" "+status+"/ onchange=\"ChangeStatus("+idtugas+")\"></div>");
                         %>
+						<%
+						out.println("<button onclick=\"location.href='deletetask.php?q="+idtugas+"'\">Hapus Task...</button>");
+						%>
                     </div>
                 </div>
-            </form>
-            <%
-            out.println("<button onclick=\"location.href='deletetask.php?q="+idtugas+"'\">Hapus Task...</button>");
-            %>
+			
+            </form> 
         </div>
         <div id="rightspace">
             <div>
