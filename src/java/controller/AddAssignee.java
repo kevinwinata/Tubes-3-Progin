@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dboperation.AssigneeDb;
+import java.io.PrintWriter;
+import java.util.List;
 import model.Assignee;
 /**
  *
@@ -35,8 +37,15 @@ public class AddAssignee extends HttpServlet {
         assignee.setIdtugas(request.getParameter("q"));
         assignee.setUsername(request.getParameter("p"));
         dboperation.addAssignee(assignee);
-        RequestDispatcher view = request.getRequestDispatcher("/viewtask.jsp");
-        view.forward(request, response);
+        PrintWriter out = response.getWriter();
+        List<String> as = dboperation.getUsername(assignee.getIdtugas());
+        for (int i = 0; i < as.size(); i++) {
+            if (i < as.size() - 1)
+                out.println("<a href=\"profilesearch.jsp?idsearch="+as.get(i)+"\">"+as.get(i)+"</a>\", ");
+            else
+                out.println("<a href=\"profilesearch.jsp?idsearch="+as.get(i)+"\">"+as.get(i)+"</a>");
+        }
+        out.close();
     }
     
 }
