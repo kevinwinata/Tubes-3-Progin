@@ -42,6 +42,7 @@ public class Login extends HttpServlet {
         if (dboperation.checkLogin(user)) {
             view2.forward(request, response);
             session.setAttribute("id", request.getParameter("username"));
+			session.setAttribute("pagenum", 1);
         }
         else {
             request.setAttribute("q", "0");

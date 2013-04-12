@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dboperation.UserDb;
+import javax.servlet.http.HttpSession;
 import model.User;
 /**
  *
@@ -37,6 +38,8 @@ public class Search extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String find = request.getParameter("find");
 		String field = request.getParameter("field");
+                HttpSession session = request.getSession();
+                String currentuser = session.getAttribute("id").toString();
 		int totalCari = 0;
 		PrintWriter out = response.getWriter();
 		if ((field.equals("semua")) || (field.equals("username")))
@@ -84,7 +87,10 @@ public class Search extends HttpServlet {
 					{	
 						result = users.remove(0);
 						out.println("<div id=\"isi1\">");
-						out.println("<p style='margin-left: 1em;'>Username : <a href=\"profilesearch.jsp?idsearch="+result.getUsername()+"\">"+ result.getUsername() +"</a></p>");
+                                                if (currentuser.equals(result.getUsername()))
+                                                    out.println("<p style='margin-left: 1em;'>Username : <a href=\"profile.jsp\">"+ result.getUsername() +"</a></p>");
+                                                else
+                                                    out.println("<p style='margin-left: 1em;'>Username : <a href=\"profilesearch.jsp?idsearch="+result.getUsername()+"\">"+ result.getUsername() +"</a></p>");
 						out.println("<p style='margin-left: 3em;'>Fullname : "+ result.getFullname() +"</p>");
 						out.println("<p style='margin-left: 3em;'><img src=\""+ result.getAvatar() + "\" alt=\"\" / height=\"100\" width=\"100\"></p>");
 						out.println("</div>");

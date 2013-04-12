@@ -30,18 +30,13 @@ public class DeleteComment extends HttpServlet {
         dboperation = new KomentarDb();
     }
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Komentar komentar = new Komentar();
-        komentar.setIdtugas(request.getParameter("idtugas"));
-		try {
-            String createdate = request.getParameter("bulan")+"/"+request.getParameter("tanggal")+"/"+request.getParameter("tahun");
-            Date waktu = new SimpleDateFormat("MM/dd/yyyy").parse(createdate);
-            komentar.setWaktu(waktu);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        dboperation.deleteComment(komentar);  
-        RequestDispatcher view = request.getRequestDispatcher("/viewtask.jsp");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String isikomentar = request.getParameter("q");
+        String idtugas = request.getParameter("r");
+        String username = request.getParameter("s");
+        dboperation.deleteComment(username, isikomentar, idtugas);  
+        
+        RequestDispatcher view = request.getRequestDispatcher("/viewtask.jsp?q=" + idtugas);
         view.forward(request, response);
     }
 }

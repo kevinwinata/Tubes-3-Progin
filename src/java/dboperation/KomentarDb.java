@@ -24,14 +24,69 @@ public class KomentarDb {
     public KomentarDb() {
         connection = DbUtil.getConnection();
     }
+    
+    public List<Komentar> getComment (String idtugas) {
+        List<Komentar> komentars = new ArrayList<Komentar>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM komentar WHERE idtugas=" + idtugas + " order by waktu DESC ";
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Komentar komentar = new Komentar();
+                komentar.setIdtugas(rs.getString("idtugas"));
+                komentar.setUsername(rs.getString("username"));
+                komentar.setIsikomentar(rs.getString("isikomentar"));
+                komentar.setWaktu(rs.getDate("waktu"));
+                komentars.add(komentar);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return komentars;
+    }
+    
+    public List<Komentar> getCommentWMax (String idtugas, String max) {
+        List<Komentar> komentars = new ArrayList<Komentar>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM komentar WHERE idtugas=" + idtugas + " order by waktu DESC " + max;
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Komentar komentar = new Komentar();
+                komentar.setIdtugas(rs.getString("idtugas"));
+                komentar.setUsername(rs.getString("username"));
+                komentar.setIsikomentar(rs.getString("isikomentar"));
+                komentar.setWaktu(rs.getDate("waktu"));
+                komentars.add(komentar);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return komentars;
+    }
+    
+    public void addComment(Komentar komentar) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into komentar(idtugas,username,isikomentar,waktu) values (?, ?, ?, CURRENT_TIMESTAMP )");
+            // Parameters start with 1
+            preparedStatement.setString(1, komentar.getIdtugas());
+            preparedStatement.setString(2, komentar.getUsername());
+            preparedStatement.setString(3, komentar.getIsikomentar());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 	
-    public void deleteComment(Komentar komentar) {
+    public void deleteComment(String username, String isikomentar, String idtugas) {
         try {
             PreparedStatement preparedStatement = connection
-					.prepareStatement("DELETE FROM komentar WHERE waktu=? and idtugas=?;");
+					.prepareStatement("DELETE FROM komentar WHERE username=? and isikomentar=? and idtugas=?");
             // Parameters start with 1
-            preparedStatement.setDate(1, new java.sql.Date(komentar.getWaktu().getTime()));
-            preparedStatement.setString(2, komentar.getIdtugas());
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, isikomentar);
+            preparedStatement.setString(3, idtugas);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
