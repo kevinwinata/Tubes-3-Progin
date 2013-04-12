@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dboperation.UserDb;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import javax.servlet.http.*;
 import model.User;
 /**
  *
@@ -31,6 +34,7 @@ public class Register extends HttpServlet {
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         User user = new User();
         user.setUsername(request.getParameter("username"));
         user.setPassword(request.getParameter("password"));
@@ -53,10 +57,34 @@ public class Register extends HttpServlet {
             }
         }
         user.setAvatar(filename);
+        
+        Part filePart = request.getPart("avatar"); // Retrieves <input type="file" name="file">
+        String dir = "upload/" + filename;
+        byte buf[] = new byte[1024 * 4];
+        if (!filename.isEmpty()) {
+            FileOutputStream output = new FileOutputStream(getServletContext().getRealPath("/") + filename);
+            try {
+                InputStream input = filePart.getInputStream();
+                try {
+                    while (true) {
+                        int count = input.read(buf);
+                        if (count == -1)
+                            break;
+                        output.write(buf, 0, count);
+                    }
+                } finally {
+                    input.close();
+                }
+            } finally {
+                output.close();
+            }
+        }
 
         dboperation.addUser(user);
         
-        RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
+        session.setAttribute("id", user.getUsername());
+        session.setAttribute("pagenum", 1);
+        RequestDispatcher view = request.getRequestDispatcher("/dashboard.jsp");
         view.forward(request, response);
     }
     
