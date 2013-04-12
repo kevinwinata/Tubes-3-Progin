@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import dboperation.TagDb;
 import model.Tag;
+import java.io.PrintWriter;
+import java.util.List;
 /**
  *
  * @author Kevin Alfianto
@@ -34,8 +36,15 @@ public class AddTag extends HttpServlet {
         Tag tag = new Tag();
         tag.setIdtugas(request.getParameter("q"));
 		tag.setIsitag(request.getParameter("p"));
-        dboperation.addTag(tag);  
-        RequestDispatcher view = request.getRequestDispatcher("/viewtask.jsp");
-        view.forward(request, response);
+        dboperation.addTag(tag); 
+		PrintWriter out = response.getWriter();
+		List<String> result = dboperation.getTagString(tag.getIdtugas());
+        for (int i = 0; i < result.size(); i++) {
+            if (i < result.size() - 1)
+                out.println(result.get(i)+", ");
+            else
+                out.println(result.get(i));
+        }
+        out.close();
     }
 }

@@ -99,9 +99,10 @@ public class TagDb {
     public void deleteTag(Tag tag) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from tag where idtugas=?;");
+                    .prepareStatement("delete from tag where idtugas=? and isitag=?;");
             // Parameters start with 1
             preparedStatement.setString(1, tag.getIdtugas());
+			preparedStatement.setString(2, tag.getIsitag());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

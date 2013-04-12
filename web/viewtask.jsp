@@ -22,56 +22,45 @@
             var bulan = "Januari";
             var tahun = 2013;
 			
-            function addTag(e,uidtugas){
+			function addTag(uidtugas) {
                 var xmlhttp;
-                var value;
-                if (e && e.keyCode == 13) {
-                    value = document.getElementById("tag").value;
-                    if (window.XMLHttpRequest) {
-                        // code for IE7+, Firefox, Chrome, Opera, Safari
-                        xmlhttp=new XMLHttpRequest();
-                    }
-                    else {
-                        // code for IE6, IE5
-                        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-                    }
-                    xmlhttp.onreadystatechange=function() {
-                        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-                            document.getElementById("tagvalue").innerHTML = value;
-                            showHide("tag");
-                            showHide("tagvalue");
-                            renameButton("tagbutton");
-                        }
-                    }
-                    xmlhttp.open("GET","AddTag?q="+uidtugas+"&p="+value,true);
-                    xmlhttp.send();
+                var tag = document.getElementById("tagtext").value;
+                if (window.XMLHttpRequest) {
+                    // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
                 }
+                else {
+                    // code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange=function() {
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                        document.getElementById("tagvalue").innerHTML = xmlhttp.responseText;
+                    }
+                }
+                xmlhttp.open("GET","AddTag?q="+uidtugas+"&p="+tag,true);
+                xmlhttp.send();
             }
 			
-			function hapusTag(e,uidtugas){
+			
+			function hapusTag(uidtugas) {
                 var xmlhttp;
-                var value;
-                if (e && e.keyCode == 13) {
-                    value = document.getElementById("tag").value;
-                    if (window.XMLHttpRequest) {
-                        // code for IE7+, Firefox, Chrome, Opera, Safari
-                        xmlhttp=new XMLHttpRequest();
-                    }
-                    else {
-                        // code for IE6, IE5
-                        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-                    }
-                    xmlhttp.onreadystatechange=function() {
-                        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-                            document.getElementById("tagvalue").innerHTML = value;
-                            showHide("tag");
-                            showHide("tagvalue");
-                            renameButton("tagbutton");
-                        }
-                    }
-                    xmlhttp.open("GET","DeleteTag?q="+uidtugas+"&p="+value,true);
-                    xmlhttp.send();
+                var tag = document.getElementById("fieldhapustag").value;
+                if (window.XMLHttpRequest) {
+                    // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
                 }
+                else {
+                    // code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange=function() {
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                        document.getElementById("tagvalue").innerHTML = xmlhttp.responseText;
+                    }
+                }
+                xmlhttp.open("GET","DeleteTag?q="+uidtugas+"&p="+tag,true);
+                xmlhttp.send();
             }
 			
             function editDeadline(uidtugas){
@@ -410,18 +399,18 @@
                             <select name="tgl" id="tgl">
                             </select>
                             <select name="bln" id="bln">
-                                <option value="January">January</option>
-                                <option value="February">February</option>
-                                <option value="March">March</option>
-                                <option value="April">April</option>
-                                <option value="May">May</option>
-                                <option value="June">June</option>
-                                <option value="July">July</option>
-                                <option value="August">August</option>
-                                <option value="September">September</option>
-                                <option value="October">October</option>
-                                <option value="November">November</option>
-                                <option value="December">December</option>
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
                             </select>
                             <select name="thn" id="thn">
                             </select>
@@ -493,7 +482,8 @@
                         %>
                     </div>
                     <div class="viewtask_edit">
-                        <input type=text name=as id="tag" type="text"/>
+                        <input type=text name=tagtext id="tagtext" type="text" tabindex="4" />
+                        <label id="opsi"></label>
                         <label id="opsi"></label>
                         <%
                         out.println("<input type=button value=\"Add\" id=\"tagbutton\" onclick=\"addTag("+idtugas+")\">");
