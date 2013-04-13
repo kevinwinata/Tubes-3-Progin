@@ -99,7 +99,7 @@ public class Search3 extends HttpServlet {
 						result1 = tugass.remove(0);
 						result2 = tags.remove(0);
 						out.println("<div id=\"isi1\">");
-						out.println("<p style='margin-left: 1em;'>Nama Task : <a href=\"viewtask.jsp?q="+result1.getIdtugas()+"\">"+ result1.getNamatugas() +"</a></p>");
+						out.println("<p style='margin-left: 1em;'>Nama Task : <a href=\"viewtasksearch.jsp?q="+result1.getIdtugas()+"\">"+ result1.getNamatugas() +"</a></p>");
 						out.println("<p style='margin-left: 1em;'>Tanggal Deadline : "+ result1.getDeadline() +"</p>");
 						out.println("<p style='margin-left: 1em;'>Tag : "+ result2.getIsitag() +"</p>");
                                                 out.println("<p style='margin-left: 1em;'>Status : "+ result1.getStatus() +"</p>");
