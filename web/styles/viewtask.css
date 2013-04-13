@@ -148,7 +148,7 @@
 	margin-top:5px;
 	margin-left:10px;
 	font:normal 20px "Trebuchet MS", Arial, Helvetica, sans-serif;
-	width:30%;
+	width:50%;
 	float:left;
 }
 
@@ -158,6 +158,7 @@
 	font:normal 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
 	color:grey;
 	float:left;
+	width:50%;
 }
 
 .viewtask_edit {
@@ -166,6 +167,28 @@
 	float:right;
 }
 
+.viewtask_label_dl {
+	margin-top:5px;
+	font:normal 20px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	width:25%;
+	float:left;
+}
+
+.viewtask_field_dl {
+	margin-top:5px;
+	margin-left:10px;
+	font:normal 16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color:grey;
+	float:left;
+	width:50%;
+}
+
+.viewtask_edit_dl {
+	margin-top:5px;
+	margin-left:10px;
+	width:50%;
+	float:right;
+}
 #fieldset {
 	width:250px;
 }

@@ -44,16 +44,16 @@ public class UserDb {
         }
     }
     
-    public void editUser(User user, String fullname, String password, Date birthdate, String avatar) {
+    public void editUser(String username, User userref) {
         try {
             PreparedStatement preparedStatement = connection
                     .prepareStatement("update user set fullname=?, password=?, birthdate=?, avatar=? where username=?;");
             // Parameters start with 1
-            preparedStatement.setString(1, fullname);
-            preparedStatement.setString(2, password);
-            preparedStatement.setDate(3, new java.sql.Date(birthdate.getTime()));
-            preparedStatement.setString(4, avatar);
-            preparedStatement.setString(5, user.getUsername());
+            preparedStatement.setString(1, userref.getFullname());
+            preparedStatement.setString(2, userref.getPassword());
+            preparedStatement.setDate(3, new java.sql.Date(userref.getBirthdate().getTime()));
+            preparedStatement.setString(4, userref.getAvatar());
+            preparedStatement.setString(5, username);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

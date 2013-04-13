@@ -48,82 +48,6 @@
                 document.getElementById("thn").appendChild(opsi);
             }
         }
-
-        function validateFullName(nama) {
-            var str = nama;
-            var idx = str.indexOf(' ');
-            if (idx > 0 && idx < str.length - 1) {
-                var chr1 = str.charAt(idx - 1);
-                var chr2 = str.charAt(idx + 1);
-                if (chr1 != ' ' && chr2 != ' ') {
-                    document.getElementById('v_nama').innerHTML='<font color="green">Benar</font>';
-                    return true;	
-                } else {
-                    document.getElementById('v_nama').innerHTML='<font color="red">Nama lengkap minimal 2 kata dipisahkan 1 spasi</font>'; 
-                    return false;
-                }
-            } else {
-                document.getElementById('v_nama').innerHTML='<font color="red">Nama lengkap minimal 2 kata dipisahkan 1 spasi</font>'; 
-                return false;
-            }
-        }
-
-        function checkPass(pass, uname, email){
-            if((pass != uname) && (pass != email)){
-                document.getElementById('v_pass').innerHTML='<font color="green">Benar</font>';
-                return true;					
-            }else if(pass == uname){
-                document.getElementById('v_pass').innerHTML='<font color="red">Password tidak boleh sama dengan username</font>'; 
-                return false;
-            }
-            else if(pass == email){
-                document.getElementById('v_pass').innerHTML='<font color="red">Password tidak boleh sama dengan email</font>'; 
-                return false;
-            }
-            else{
-                document.getElementById('v_pass').innerHTML='<font color="red">Password tidak boleh sama dengan username/email</font>'; 
-                return false;
-            }
-        }
-
-        function checkCPass(cpass, pass){
-            if(cpass == pass){
-                document.getElementById('v_cpass').innerHTML='<font color="green">Benar</font>';
-                return true;					
-            }else{
-                document.getElementById('v_cpass').innerHTML='<font color="red">Salah</font>'; 
-                return false;
-            }
-        }
-
-        function validateAvatar(avatar) {
-            var str = avatar;
-            var ext = str.substring(str.lastIndexOf('.') + 1, str.length);
-            if (ext.toLowerCase() == "jpeg" || ext.toLowerCase() == "jpg") {
-                document.getElementById('v_avatar').innerHTML='<font color="green">Benar</font>';
-                return true;	
-            } else {
-                document.getElementById('v_avatar').innerHTML='<font color="red">Avatar harus ekstensi .jpg atau .jpeg</font>'; 
-                return false;
-            }
-        }
-
-        function check(fullname, password, cpassword, tanggal, bulan, tahun, avatar) {
-            if ((fullname.length==0) &&
-                (password.length==0) && 
-                (cpassword.length==0) &&
-                (tanggal == "1") && (bulan == "1") && (tahun == "1955") &&
-                (avatar.length == 0)
-            ) {
-                    alert("Tidak ada atribut profile yang diubah!");
-                    return false;
-                }
-            if (password == cpassword) {
-                return true;
-            } else {
-                return false;
-            }
-        }
     </script>
 
     <body onLoad="makeTgl();makeThn();">
@@ -327,56 +251,6 @@
                         }
                     %>
                 </div>
-            </div>
-
-            <!--Popup edit profile -->
-            <a href="#x" class="overlay" id="editprofile_form"></a>
-            <div class="popup">
-                <form name="editprofile" method="post" onSubmit="return check(
-                document.editprofile.fullname.value,
-                document.editprofile.password.value,
-                document.editprofile.confirm_password.value,
-                document.editprofile.tanggal.value,
-                document.editprofile.bulan.value,
-                document.editprofile.tahun.value,
-                document.editprofile.avatar.value)" action="EditProfile" enctype="multipart/form-data">
-                    Fullname : <input name="fullname" type="text" maxlength="256" onKeyUp="validateFullName(document.editprofile.fullname.value)"><br>
-                    <div id="v_nama">
-                    </div>
-                    Password : <input name="password" type="password" maxlength="24" onKeyUp="checkPass(document.editprofile.password.value,<% out.print("'" + user.getUsername() + "','" + user.getEmail() + "'"); %>)"> <br>
-                    <div id="v_pass">
-                    </div>
-                    Confirm Password : <input name="confirm_password" type="password" maxlength="24" onKeyUp="checkCPass(document.editprofile.confirm_password.value, document.editprofile.password.value)"><br>
-                    <div id="v_cpass">
-                    </div>
-                    Birthdate : 
-                    <select name="tanggal" id="tgl">
-
-                    </select>
-                    <select name="bulan">
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                    <select name="tahun" id="thn">
-
-                    </select>
-                    <br>
-                    Avatar : <input type="file" name="avatar"><br>
-                    <div id="v_avatar">
-                    </div>
-                    <input type="submit" name="submit" value="Edit">
-                    <a class="close" href="#"></a>
-                </form>
             </div>
     </body>
 </html>

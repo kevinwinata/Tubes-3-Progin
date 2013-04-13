@@ -69,7 +69,8 @@
         }
 
         function checkPass(pass, uname, email){
-            if((pass != uname) && (pass != email)){
+            var a = pass;
+            if((pass != uname) && (pass != email) && (a.length > 7)){
                 document.getElementById('v_pass').innerHTML='<font color="green">Benar</font>';
                 return true;					
             }else if(pass == uname){
@@ -81,7 +82,7 @@
                 return false;
             }
             else{
-                document.getElementById('v_pass').innerHTML='<font color="red">Password tidak boleh sama dengan username/email</font>'; 
+                document.getElementById('v_pass').innerHTML='<font color="red">Password tidak boleh sama dengan username/email dan minimal 8 karakter</font>'; 
                 return false;
             }
         }

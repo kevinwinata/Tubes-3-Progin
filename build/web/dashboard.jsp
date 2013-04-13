@@ -22,6 +22,7 @@
         <link href="styles/dashboard.css" rel="stylesheet" type="text/css" />
 
         <script>
+            var kategori = 0;
             function ListKategori(username){
                 var xmlhttp;
                 if (window.XMLHttpRequest) {
@@ -62,6 +63,7 @@
         
             function showTask(uidkategori){
                 var xmlhttp;
+                kategori = uidkategori;
                 if (window.XMLHttpRequest) {
                     // code for IE7+, Firefox, Chrome, Opera, Safari
                     xmlhttp=new XMLHttpRequest();
@@ -86,6 +88,7 @@
 
             function showTaskDefault(){
                 var xmlhttp;
+                kategori = 0;
                 if (window.XMLHttpRequest) {
                     // code for IE7+, Firefox, Chrome, Opera, Safari
                     xmlhttp=new XMLHttpRequest();
@@ -106,6 +109,7 @@
                 xmlhttp.open("GET","ListTaskDefault?q=moonray",true);
                 xmlhttp.send();
             }
+            
             function ChangeStatus(idtugas){
                 var xmlhttp;
                 if (window.XMLHttpRequest) {
@@ -124,19 +128,22 @@
                 xmlhttp.open("GET","ChangeStatus?q="+idtugas,true);
                 xmlhttp.send();
             }
+            
+            function update() {
+                setInterval(function() {
+                if (kategori == 0) {
+                    showTaskDefault();
+                }
+                else {
+                    showTask(kategori);
+                }
+                },500);
+            }
+            
         </script>
 
     </head>
-
-    <%
-        String idkategori = (String) request.getAttribute("q");
-
-        if (idkategori == null) {
-            out.print("<body onLoad=\"ListKategori();HakPengguna();showTaskDefault()\">");
-        } else {
-            out.print("<body onLoad=\"ListKategori();HakPengguna();showTask(" + idkategori + ")\">");
-        }
-    %>
+    <body onLoad="ListKategori();HakPengguna();update()">
     <div id="container">
         <div id="header">
             <div class=logo id="logo">

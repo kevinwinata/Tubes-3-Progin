@@ -41,18 +41,18 @@ public class EditProfile extends HttpServlet {
         User user = dboperation.getUser(session.getAttribute("id").toString());
         
         if (!request.getParameter("fullname").isEmpty()) {
-            dboperation.editUser(user, request.getParameter("fullname"), user.getPassword(), user.getBirthdate(), user.getAvatar());
+            user.setFullName(request.getParameter("fullname"));
         }
         
         if (!request.getParameter("password").isEmpty()) {
-            dboperation.editUser(user, user.getFullname(), request.getParameter("password"), user.getBirthdate(), user.getAvatar());
+            user.setPassword(request.getParameter("password"));
         }
         
         if (!((request.getParameter("tanggal").equals("1")) && (request.getParameter("bulan").equals("1")) && (request.getParameter("tahun").equals("1955")))) {
             try {
                 String createdate = request.getParameter("bulan")+"/"+request.getParameter("tanggal")+"/"+request.getParameter("tahun");
                 Date birthdate = new SimpleDateFormat("MM/dd/yyyy").parse(createdate);
-                dboperation.editUser(user, user.getFullname(), user.getPassword(), birthdate, user.getAvatar());
+                user.setBirthdate(birthdate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -66,6 +66,7 @@ public class EditProfile extends HttpServlet {
         String dir = "upload/" + filename;
         byte buf[] = new byte[1024 * 4];
         if (!filename.isEmpty()) {
+            user.setAvatar(dir);
             FileOutputStream output = new FileOutputStream(getServletContext().getRealPath("/") + "upload/" + filename);
             try {
                 InputStream input = filePart.getInputStream();
@@ -82,9 +83,9 @@ public class EditProfile extends HttpServlet {
             } finally {
                 output.close();
             }
-                    
-            dboperation.editUser(user, user.getFullname(), user.getPassword(), user.getBirthdate(), dir);
         }
+        
+        dboperation.editUser(user.getUsername(), user);
 
         RequestDispatcher view = request.getRequestDispatcher("/profile.jsp");
         view.forward(request, response);
